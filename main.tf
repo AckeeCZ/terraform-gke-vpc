@@ -1,3 +1,7 @@
+provider "random" {
+  version = "~> 2.1"
+}
+
 resource "google_container_cluster" "primary" {
   name               = "${var.project}"
   zone               = "${var.zone}"
@@ -87,7 +91,7 @@ resource "google_compute_router_nat" "advanced-nat" {
 }
 
 provider "kubernetes" {
-  version = "1.4.0"
+  version = "1.9.0"
 
   load_config_file = false
   host             = "https://${google_container_cluster.primary.endpoint}"
