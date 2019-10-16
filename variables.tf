@@ -6,8 +6,10 @@ variable "region" {
   default = "europe-west3"
 }
 
-variable "project" {}
+variable "project" {
+}
 
 variable "namespace" {
   default = "production"
 }
+
