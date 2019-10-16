@@ -1,4 +1,4 @@
-variable "zone" {
+variable "location" {
   default = "europe-west3-c"
 }
 

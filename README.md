@@ -9,6 +9,6 @@ module "gke" {
 	source = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v1.0.0"
 	namespace = "${var.namespace}"
 	project = "${var.project}"
-	zone = "${var.zone}"
+	location = "${var.location}"
 }
 ```
