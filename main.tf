@@ -40,7 +40,7 @@ resource "google_container_cluster" "primary" {
     ]
 
     metadata = {
-      disable-legacy-endpoints = true
+      disable-legacy-endpoints = "1"
     }
 
     tags = ["k8s"]
