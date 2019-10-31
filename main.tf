@@ -8,7 +8,7 @@ resource "google_container_cluster" "primary" {
   project            = "${var.project}"
   min_master_version = "${data.google_container_engine_versions.current.latest_master_version}"
 
-  initial_node_count = 3
+  initial_node_count = 1
 
   master_auth {
     username = "${random_string.cluster_username.result}"
