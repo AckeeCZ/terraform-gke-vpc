@@ -12,7 +12,7 @@ resource "google_container_cluster" "primary" {
   project            = var.project
   min_master_version = data.google_container_engine_versions.current.latest_master_version
 
-  initial_node_count = 3
+  initial_node_count = 1
 
   master_auth {
     username = random_string.cluster_username.result
@@ -48,8 +48,7 @@ resource "google_container_cluster" "primary" {
 
   private_cluster_config {
     enable_private_endpoint = false
-    enable_private_nodes    = true
-    master_ipv4_cidr_block  = "172.16.0.0/28"
+    enable_private_nodes    = false
   }
 
   ip_allocation_policy {
