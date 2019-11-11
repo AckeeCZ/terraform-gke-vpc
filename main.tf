@@ -110,4 +110,3 @@ resource "kubernetes_namespace" "main" {
     name = var.namespace
   }
 }
-
