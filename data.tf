@@ -1,6 +1,6 @@
 data "google_container_engine_versions" "current" {
-  zone    = "${var.zone}"
-  project = "${var.project}"
+  location = var.location
+  project  = var.project
 }
 
 resource "random_string" "cluster_password" {
@@ -14,12 +14,13 @@ resource "random_string" "cluster_username" {
 }
 
 data "google_compute_network" "default" {
-  project = "${var.project}"
+  project = var.project
   name    = "default"
 }
 
 data "google_container_cluster" "primary" {
-  name    = "${var.project}"
-  zone    = "${var.zone}"
-  project = "${var.project}"
+  name     = var.project
+  location = var.location
+  project  = var.project
 }
+
