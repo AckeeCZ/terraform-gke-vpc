@@ -85,7 +85,7 @@ resource "google_compute_address" "outgoing-traffic" {
 
 resource "google_compute_router_nat" "advanced-nat" {
   name                               = "nat01"
-  router                             = google_compute_router.router.name
+  router                             = google_compute_router.router[0].name
   region                             = var.region
   project                            = var.project
   nat_ip_allocate_option             = "MANUAL_ONLY"
