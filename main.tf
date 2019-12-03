@@ -12,7 +12,8 @@ resource "google_container_cluster" "primary" {
   project            = var.project
   min_master_version = data.google_container_engine_versions.current.latest_master_version
 
-  initial_node_count = 1
+  remove_default_node_pool = true
+  initial_node_count       = 1
 
   master_auth {
     username = random_string.cluster_username.result
@@ -27,24 +28,6 @@ resource "google_container_cluster" "primary" {
   enable_kubernetes_alpha = "false"
   logging_service         = "logging.googleapis.com/kubernetes"
   monitoring_service      = "monitoring.googleapis.com/kubernetes"
-
-  node_config {
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/devstorage.read_only",
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
-      "https://www.googleapis.com/auth/servicecontrol",
-      "https://www.googleapis.com/auth/service.management.readonly",
-      "https://www.googleapis.com/auth/trace.append",
-      "https://www.googleapis.com/auth/compute.readonly"
-    ]
-
-    metadata = {
-      disable-legacy-endpoints = "1"
-    }
-
-    tags = ["k8s"]
-  }
 
   private_cluster_config {
     enable_private_endpoint = var.private
@@ -65,6 +48,35 @@ resource "google_container_cluster" "primary" {
     daily_maintenance_window {
       start_time = "01:00"
     }
+  }
+}
+
+resource "google_container_node_pool" "ackee-pool" {
+  name       = "ackee-pool"
+  location   = var.location
+  cluster    = google_container_cluster.primary.name
+  node_count = 1
+
+  node_config {
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/devstorage.read_only",
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+      "https://www.googleapis.com/auth/servicecontrol",
+      "https://www.googleapis.com/auth/service.management.readonly",
+      "https://www.googleapis.com/auth/trace.append",
+      "https://www.googleapis.com/auth/compute.readonly"
+    ]
+
+    metadata = {
+      disable-legacy-endpoints = "1"
+    }
+
+    tags = ["k8s"]
+
+    preemptible  = false
+    machine_type = var.machine_type
+
   }
 }
 
