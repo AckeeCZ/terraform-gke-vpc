@@ -13,3 +13,7 @@ variable "namespace" {
   default = "production"
 }
 
+variable "private" {
+  default = false
+  type    = bool
+}
