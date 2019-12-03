@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.3.0] - 2019-12-03
+### Added
+- Add parameter `private` - allows to switch if we want or do not want private cluster (controls creation of NAT gateway and router)
+### Fixed
+- backward compatibility with v5.2.1 - we create completely new node-pool which means that we do not need to redeploy cluster to changes pool OAuth scopes
+### Changed
+- we now utilize `google_container_node_pool` resource to create node-pool - now node pool definition is independent on cluster definition
+
 ## [v5.2.2] - 2019-12-01
 - Add compute scope to allow Elasticsearch discovery
 
