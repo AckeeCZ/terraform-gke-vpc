@@ -77,7 +77,6 @@ resource "google_compute_router" "router" {
 }
 
 resource "google_compute_address" "outgoing-traffic" {
-  count   = 1
   name    = "nat-external-address-eu"
   region  = var.region
   project = var.project
