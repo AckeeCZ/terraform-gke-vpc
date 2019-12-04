@@ -21,3 +21,8 @@ variable "private" {
   default = false
   type    = bool
 }
+
+variable "private_master" {
+  default = false
+  type    = bool
+}
