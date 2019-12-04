@@ -32,6 +32,7 @@ resource "google_container_cluster" "primary" {
   private_cluster_config {
     enable_private_endpoint = var.private_master
     enable_private_nodes    = var.private
+    master_ipv4_cidr_block  = var.private ? "172.16.0.0/28" : null
   }
 
   ip_allocation_policy {

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v5.3.0] - 2019-12-03
 ### Added
 - Add parameter `private` - allows to switch if we want or do not want private cluster (controls creation of NAT gateway and router)
+- Add parameter `private_master` - allows to create master without public endpoint - master then can be reached only from VPC, we currently does not support this
 ### Fixed
 - backward compatibility with v5.2.1 - we create completely new node-pool which means that we do not need to redeploy cluster to changes pool OAuth scopes
 ### Changed
