@@ -30,7 +30,7 @@ resource "google_container_cluster" "primary" {
   monitoring_service      = "monitoring.googleapis.com/kubernetes"
 
   private_cluster_config {
-    enable_private_endpoint = var.private
+    enable_private_endpoint = var.private_master
     enable_private_nodes    = var.private
   }
 
@@ -51,7 +51,7 @@ resource "google_container_cluster" "primary" {
   }
 }
 
-resource "google_container_node_pool" "ackee-pool" {
+resource "google_container_node_pool" "ackee_pool" {
   name       = "ackee-pool"
   location   = var.location
   cluster    = google_container_cluster.primary.name
