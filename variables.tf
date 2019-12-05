@@ -13,3 +13,16 @@ variable "namespace" {
   default = "production"
 }
 
+variable "machine_type" {
+  default = "n1-standard-1"
+}
+
+variable "private" {
+  default = false
+  type    = bool
+}
+
+variable "private_master" {
+  default = false
+  type    = bool
+}
