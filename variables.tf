@@ -26,3 +26,7 @@ variable "private_master" {
   default = false
   type    = bool
 }
+
+variable "sealed_secrets_version" {
+  default = "v1.6.1"
+}
