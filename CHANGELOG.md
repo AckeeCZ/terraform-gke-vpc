@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.3.1] - 2019-12-16
+- Install bitnami [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets).
+
 ## [v5.3.0] - 2019-12-03
 ### Added
 - Add parameter `private` - allows to switch if we want or do not want private cluster (controls creation of NAT gateway and router)
