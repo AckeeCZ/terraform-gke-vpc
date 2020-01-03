@@ -56,7 +56,11 @@ resource "google_container_node_pool" "ackee_pool" {
   name       = "ackee-pool"
   location   = var.location
   cluster    = google_container_cluster.primary.name
-  node_count = 1
+
+  autoscaling {
+    max_node_count = "${var.max_nodes}"
+    min_node_count = "${var.min_nodes}"
+  }
 
   node_config {
     oauth_scopes = [
