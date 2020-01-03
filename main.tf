@@ -58,8 +58,8 @@ resource "google_container_node_pool" "ackee_pool" {
   cluster    = google_container_cluster.primary.name
 
   autoscaling {
-    max_node_count = "${var.max_nodes}"
-    min_node_count = "${var.min_nodes}"
+    max_node_count = var.max_nodes
+    min_node_count = var.min_nodes
   }
 
   node_config {
