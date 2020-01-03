@@ -30,3 +30,11 @@ variable "private_master" {
 variable "sealed_secrets_version" {
   default = "v1.6.1"
 }
+
+variable "min_nodes" {
+  default = 1
+}
+
+variable "max_nodes" {
+  default = 1
+}
