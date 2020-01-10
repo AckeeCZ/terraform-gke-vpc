@@ -4,6 +4,7 @@
   version    = var.sealed_secrets_version
 
   namespace  = "kube-system"
+  depends_on = [google_container_node_pool.ackee_pool]
 
 }
 
