@@ -38,3 +38,6 @@ variable "min_nodes" {
 variable "max_nodes" {
   default = 1
 }
+
+variable "vault_secret_path" {
+}
