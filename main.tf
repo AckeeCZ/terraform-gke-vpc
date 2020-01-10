@@ -3,7 +3,7 @@ provider "random" {
 }
 
 provider "google" {
-  version = "~> 2.17.0"
+  version = "~> 2.20.0"
 }
 
 resource "google_container_cluster" "primary" {
@@ -112,7 +112,7 @@ resource "google_compute_router_nat" "advanced-nat" {
 }
 
 provider "kubernetes" {
-  version = "1.9.0"
+  version = "~> 1.10.0"
 
   load_config_file = false
   host             = "https://${google_container_cluster.primary.endpoint}"
