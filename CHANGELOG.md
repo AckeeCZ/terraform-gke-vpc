@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.5.0] - 2020-01-11
+### Added
+- add required `vault_secret_path` parameter. This allows storing random generated cluster credentials to Vault. Value is root path for storing of secret and is passed from main module. See example [Jenkinsfile](https://gitlab.ack.ee/Ackee/infrastruktura/blob/7b3a45c804beb47edd19ec13e7d3b336a2ca73a6/Jenkinsfile#L7) and [main module variable](https://gitlab.ack.ee/Ackee/infrastruktura/blob/7b3a45c804beb47edd19ec13e7d3b336a2ca73a6/tf/variables.tf). This variable should always be set to this var, eg. `vault_secret_path = var.vault_secret_path`. Also, please see Redmine [ticket](https://redmine.ack.ee/issues/38677)
+- lock Vault provider to version `~> 2.7.1`
+
 ## [v5.4.1] - 2020-01-10
 - Bump Kubernetes provider version to 1.10 and Google provider to 2.20
 

@@ -2,6 +2,10 @@ provider "random" {
   version = "~> 2.1"
 }
 
+provider "vault" {
+  version = "~> 2.7.1"
+}
+
 provider "google" {
   version = "~> 2.20.0"
 }
