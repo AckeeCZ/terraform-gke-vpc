@@ -27,7 +27,7 @@ resource "kubernetes_cluster_role_binding" "tiller" {
 }
 
 provider "helm" {
-  version = "~> 0.10"
+  version = "~> 0.10.4"
   kubernetes {
     load_config_file       = false
     host                   = "https://${google_container_cluster.primary.endpoint}"
@@ -41,6 +41,7 @@ provider "helm" {
     "spec.template.spec.containers[0].command={/tiller,--storage=secret}"
   ]
   service_account          = "tiller-service-account"
+  tiller-image             = var.tiller_image
 }
 
 data "helm_repository" "stable" {
