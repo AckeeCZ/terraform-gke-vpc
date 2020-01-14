@@ -41,7 +41,7 @@ provider "helm" {
     "spec.template.spec.containers[0].command={/tiller,--storage=secret}"
   ]
   service_account          = "tiller-service-account"
-  tiller-image             = var.tiller_image
+  tiller_image             = var.tiller_image
 }
 
 data "helm_repository" "stable" {
