@@ -1,7 +1,7 @@
- resource "helm_release" "sealed_secrets" {
-  name       = "sealed-secrets-controller"
-  chart      = "stable/sealed-secrets"
-  version    = var.sealed_secrets_version
+resource "helm_release" "sealed_secrets" {
+  name    = "sealed-secrets-controller"
+  chart   = "stable/sealed-secrets"
+  version = var.sealed_secrets_version
 
   namespace  = "kube-system"
   depends_on = [google_container_node_pool.ackee_pool]

@@ -4,13 +4,13 @@ data "google_container_engine_versions" "current" {
 }
 
 resource "random_string" "cluster_password" {
-  length           = 16
-  special          = false
+  length  = 16
+  special = false
 }
 
 resource "random_string" "cluster_username" {
-  length           = 16
-  special          = false
+  length  = 16
+  special = false
 }
 
 data "google_compute_network" "default" {
