@@ -5,6 +5,7 @@ resource "helm_release" "traefik" {
   chart   = "traefik"
   version = var.traefik_version
 
+  namespace = "kube-system"
 
   dynamic "set" {
     for_each = var.traefik_custom_values
@@ -17,6 +18,7 @@ resource "helm_release" "traefik" {
   repository = data.helm_repository.stable.metadata[0].name
 
   depends_on = [
+    google_container_node_pool.ackee_pool,
     kubernetes_cluster_role_binding.tiller,
     kubernetes_service_account.tiller,
   ]

@@ -54,7 +54,7 @@ variable "enable_traefik" {
 
 variable "traefik_version" {
   description = "Version number of helm chart"
-  default     = "1.7"
+  default     = "1.7.2"
   type        = string
 }
 
@@ -64,5 +64,10 @@ variable "traefik_custom_values" {
     name  = string
     value = string
   }))
-  default = []
+  default = [
+    {
+      name  = "ssl.enabled"
+      value = "true"
+    },
+  ]
 }
