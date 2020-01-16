@@ -45,3 +45,33 @@ variable "max_nodes" {
 
 variable "vault_secret_path" {
 }
+
+variable "enable_traefik" {
+  description = "Enable traefik helm chart for VPC"
+  default     = false
+  type        = bool
+}
+
+variable "traefik_version" {
+  description = "Version number of helm chart"
+  default     = "1.7.2"
+  type        = string
+}
+
+variable "traefik_custom_values" {
+  description = "Traefik Helm chart custom values list"
+  type = list(object({
+    name  = string
+    value = string
+  }))
+  default = [
+    {
+      name  = "ssl.enabled"
+      value = "true"
+    },
+    {
+      name  = "rbac.enabled"
+      value = "true"
+    },
+  ]
+}

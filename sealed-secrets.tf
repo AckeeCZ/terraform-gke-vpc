@@ -4,7 +4,11 @@
   version    = var.sealed_secrets_version
 
   namespace  = "kube-system"
-  depends_on = [google_container_node_pool.ackee_pool]
+  depends_on = [
+    google_container_node_pool.ackee_pool,
+    kubernetes_cluster_role_binding.tiller,
+    kubernetes_service_account.tiller,
+  ]
 
 }
 
