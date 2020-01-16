@@ -69,5 +69,9 @@ variable "traefik_custom_values" {
       name  = "ssl.enabled"
       value = "true"
     },
+    {
+      name  = "rbac.enabled"
+      value = "true"
+    },
   ]
 }
