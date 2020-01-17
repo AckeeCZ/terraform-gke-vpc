@@ -57,9 +57,11 @@ resource "google_container_cluster" "primary" {
 }
 
 resource "google_container_node_pool" "ackee_pool" {
-  name       = "ackee-pool"
-  location   = var.location
-  cluster    = google_container_cluster.primary.name
+  name     = "ackee-pool"
+  location = var.location
+  cluster  = google_container_cluster.primary.name
+
+  initial_node_count = 1
 
   autoscaling {
     max_node_count = var.max_nodes
