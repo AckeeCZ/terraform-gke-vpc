@@ -58,6 +58,19 @@ variable "traefik_version" {
   type        = string
 }
 
+variable "auto_repair" {
+  default = true
+}
+
+variable "auto_upgrade" {
+  default = true
+}
+
+variable "upgrade_settings" {
+  description = "Upgrade settings for node pool of GKE"
+  default     = {}
+}
+
 variable "traefik_custom_values" {
   description = "Traefik Helm chart custom values list"
   type = list(object({
