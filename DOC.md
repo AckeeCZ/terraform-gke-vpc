@@ -3,6 +3,7 @@
 | Name | Version |
 |------|---------|
 | google | ~> 2.20.0 |
+| google-beta | ~> 3.6 |
 | helm | ~> 0.10.4 |
 | kubernetes | ~> 1.10.0 |
 | random | ~> 2.1 |
@@ -28,6 +29,7 @@
 | tiller\_image | n/a | `string` | `"gcr.io/kubernetes-helm/tiller:v2.15.1"` | no |
 | traefik\_custom\_values | Traefik Helm chart custom values list | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))<br></pre> | <pre>[<br>  {<br>    "name": "ssl.enabled",<br>    "value": "true"<br>  },<br>  {<br>    "name": "rbac.enabled",<br>    "value": "true"<br>  }<br>]<br></pre> | no |
 | traefik\_version | Version number of helm chart | `string` | `"1.7.2"` | no |
+| upgrade\_settings | Upgrade settings for node pool of GKE | `map` | `{}` | no |
 | vault\_secret\_path | n/a | `any` | n/a | yes |
 
 ## Outputs

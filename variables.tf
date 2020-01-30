@@ -68,6 +68,11 @@ variable "auto_upgrade" {
   default     = false
 }
 
+variable "upgrade_settings" {
+  description = "Upgrade settings for node pool of GKE"
+  default     = {}
+}
+
 variable "traefik_custom_values" {
   description = "Traefik Helm chart custom values list"
   type = list(object({
