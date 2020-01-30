@@ -63,15 +63,6 @@ resource "google_container_node_pool" "ackee_pool" {
 
   initial_node_count = 1
 
-  dynamic upgrade_settings {
-    # a black magic to create block only if upgrade_settings contains any value
-    for_each = var.upgrade_settings == {} ? [1] : []
-    content {
-      max_surge       = lookup(var.upgrade_settings, "max_surge", 1)
-      max_unavailable = lookup(var.upgrade_settings, "max_unavailable", 1)
-    }
-  }
-
   management {
     auto_repair  = var.auto_repair
     auto_upgrade = var.auto_upgrade

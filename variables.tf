@@ -59,16 +59,13 @@ variable "traefik_version" {
 }
 
 variable "auto_repair" {
-  default = true
+  description = "Allow auto repair of node pool"
+  default     = true
 }
 
 variable "auto_upgrade" {
-  default = true
-}
-
-variable "upgrade_settings" {
-  description = "Upgrade settings for node pool of GKE"
-  default     = {}
+  description = "Allow auto upgrade of node pool"
+  default     = false
 }
 
 variable "traefik_custom_values" {

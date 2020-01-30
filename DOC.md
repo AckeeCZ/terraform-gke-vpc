@@ -12,8 +12,8 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| auto\_repair | n/a | `bool` | `true` | no |
-| auto\_upgrade | n/a | `bool` | `true` | no |
+| auto\_repair | Allow auto repair of node pool | `bool` | `true` | no |
+| auto\_upgrade | Allow auto upgrade of node pool | `bool` | `false` | no |
 | enable\_traefik | Enable traefik helm chart for VPC | `bool` | `false` | no |
 | location | n/a | `string` | `"europe-west3-c"` | no |
 | machine\_type | n/a | `string` | `"n1-standard-1"` | no |
@@ -28,7 +28,6 @@
 | tiller\_image | n/a | `string` | `"gcr.io/kubernetes-helm/tiller:v2.15.1"` | no |
 | traefik\_custom\_values | Traefik Helm chart custom values list | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))<br></pre> | <pre>[<br>  {<br>    "name": "ssl.enabled",<br>    "value": "true"<br>  },<br>  {<br>    "name": "rbac.enabled",<br>    "value": "true"<br>  }<br>]<br></pre> | no |
 | traefik\_version | Version number of helm chart | `string` | `"1.7.2"` | no |
-| upgrade\_settings | Upgrade settings for node pool of GKE | `map` | `{}` | no |
 | vault\_secret\_path | n/a | `any` | n/a | yes |
 
 ## Outputs
