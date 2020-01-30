@@ -58,6 +58,16 @@ variable "traefik_version" {
   type        = string
 }
 
+variable "auto_repair" {
+  description = "Allow auto repair of node pool"
+  default     = true
+}
+
+variable "auto_upgrade" {
+  description = "Allow auto upgrade of node pool"
+  default     = false
+}
+
 variable "traefik_custom_values" {
   description = "Traefik Helm chart custom values list"
   type = list(object({
