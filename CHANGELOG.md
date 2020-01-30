@@ -6,7 +6,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v5.6.2] - 2020-01-30
 - Add `auto_upgrade` and `auto_repair` parameters with default values for node pool
-- Add `upgrade_settings` as a map for values in block `upgrade_settings` for node pool, defaults are `max_surge = 1` and `max_unavailable = 1`
 
 ## [v5.6.1] - 2020-01-16
 - Add `initial_node_count` parameter with value of one for `google_container_node_pool` 
