@@ -1,15 +1,3 @@
-provider "random" {
-  version = "~> 2.1"
-}
-
-provider "vault" {
-  version = "~> 2.7.1"
-}
-
-provider "google" {
-  version = "~> 2.20.0"
-}
-
 resource "google_container_cluster" "primary" {
   name               = var.project
   location           = var.location
@@ -57,6 +45,8 @@ resource "google_container_cluster" "primary" {
 }
 
 resource "google_container_node_pool" "ackee_pool" {
+  provider = google-beta
+
   name     = "ackee-pool"
   location = var.location
   cluster  = google_container_cluster.primary.name
@@ -71,6 +61,15 @@ resource "google_container_node_pool" "ackee_pool" {
   autoscaling {
     max_node_count = var.max_nodes
     min_node_count = var.min_nodes
+  }
+
+  dynamic upgrade_settings {
+    # a black magic to create block only if upgrade_settings contains any value
+    for_each = var.upgrade_settings == {} ? [] : [1]
+    content {
+      max_surge       = lookup(var.upgrade_settings, "max_surge", 1)
+      max_unavailable = lookup(var.upgrade_settings, "max_unavailable", 1)
+    }
   }
 
   node_config {

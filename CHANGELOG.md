@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.7.0] - 2020-01-30
+- Moved required version of google-beta to ~> 3.6
+- Add `upgrade_settings` with `max_surge = 1` and `max_unavailable = 1` as default values
+
 ## [v5.6.2] - 2020-01-30
 - Add `auto_upgrade` and `auto_repair` parameters with default values for node pool
 
@@ -14,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Install Traefik 1.7.2 [helm chart](https://github.com/helm/charts/tree/master/stable/traefik).
 
 ## [v5.5.1] - 2020-01-14
-- add optional paramater `tiller_image`, that is passed to Helm provider and controls version of Tiller image installed.
+- Add optional paramater `tiller_image`, that is passed to Helm provider and controls version of Tiller image installed.
 
 ## [v5.5.0] - 2020-01-11
 ### Added
@@ -35,15 +39,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add parameter `private` - allows to switch if we want or do not want private cluster (controls creation of NAT gateway and router)
 - Add parameter `private_master` - allows to create master without public endpoint - master then can be reached only from VPC, we currently does not support this
 ### Fixed
-- backward compatibility with v5.2.1 - we create completely new node-pool which means that we do not need to redeploy cluster to changes pool OAuth scopes
+- Backward compatibility with v5.2.1 - we create completely new node-pool which means that we do not need to redeploy cluster to changes pool OAuth scopes
 ### Changed
-- we now utilize `google_container_node_pool` resource to create node-pool - now node pool definition is independent on cluster definition
+- We now utilize `google_container_node_pool` resource to create node-pool - now node pool definition is independent on cluster definition
 
 ## [v5.2.2] - 2019-12-01
 - Add compute scope to allow Elasticsearch discovery
 
 ## [v5.2.1] - 2019-11-12
-- change Helm definition to TF0.12 syntax, add helm_repository data to force TF to install Tiller
+- Change Helm definition to TF0.12 syntax, add helm_repository data to force TF to install Tiller
 
 ## [v5.2.0] - 2019-11-11
 - Install Tiller and setup Helm by Terraform
@@ -52,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove compute OAuth scope. It is potentially dangerous (https://redmine.ack.ee/issues/38969)
 
 ## [v5.0.0] - 2019-11-11
-- upgrade to Terraform 0.12
+- Upgrade to Terraform 0.12
 
 ## [v2.0.0] - 2019-10-17
 - Change password generation - remove special chars (https://github.com/kubernetes/kubernetes/issues/65633) -
