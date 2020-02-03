@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.8.0] - 2020-02-03
+- Add optional paramaters `cluster_ipv4_cidr_block` and `services_ipv4_cidr_block` which we can use to override default CIDR allocations of new GKE cluster
+
 ## [v5.7.0] - 2020-01-30
 - Moved required version of google-beta to ~> 3.6
 - Add `upgrade_settings` with `max_surge = 1` and `max_unavailable = 1` as default values
@@ -12,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `auto_upgrade` and `auto_repair` parameters with default values for node pool
 
 ## [v5.6.1] - 2020-01-16
-- Add `initial_node_count` parameter with value of one for `google_container_node_pool` 
+- Add `initial_node_count` parameter with value of one for `google_container_node_pool`
 
 ## [v5.6.0] - 2020-01-16
 - Install Traefik 1.7.2 [helm chart](https://github.com/helm/charts/tree/master/stable/traefik).
