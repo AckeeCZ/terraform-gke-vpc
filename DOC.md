@@ -27,7 +27,7 @@
 | project | n/a | `any` | n/a | yes |
 | region | n/a | `string` | `"europe-west3"` | no |
 | sealed\_secrets\_version | n/a | `string` | `"v1.6.1"` | no |
-| services\_ipv4\_cidr\_block | dIP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
+| services\_ipv4\_cidr\_block | Optional IP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
 | tiller\_image | n/a | `string` | `"gcr.io/kubernetes-helm/tiller:v2.15.1"` | no |
 | traefik\_custom\_values | Traefik Helm chart custom values list | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))<br></pre> | <pre>[<br>  {<br>    "name": "ssl.enabled",<br>    "value": "true"<br>  },<br>  {<br>    "name": "rbac.enabled",<br>    "value": "true"<br>  }<br>]<br></pre> | no |
 | traefik\_version | Version number of helm chart | `string` | `"1.7.2"` | no |
