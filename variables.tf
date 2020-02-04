@@ -99,6 +99,6 @@ variable "cluster_ipv4_cidr_block" {
 
 variable "services_ipv4_cidr_block" {
   type        = "string"
-  description = "dIP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size."
+  description = "Optional IP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size."
   default     = ""
 }
