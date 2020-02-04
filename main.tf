@@ -28,6 +28,8 @@ resource "google_container_cluster" "primary" {
   }
 
   ip_allocation_policy {
+    cluster_ipv4_cidr_block  = var.cluster_ipv4_cidr_block
+    services_ipv4_cidr_block = var.services_ipv4_cidr_block
   }
 
   master_authorized_networks_config {
