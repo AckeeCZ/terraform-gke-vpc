@@ -92,13 +92,13 @@ variable "traefik_custom_values" {
 }
 
 variable "cluster_ipv4_cidr_block" {
-  type        = "string"
+  type        = string
   description = "Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size."
   default     = ""
 }
 
 variable "services_ipv4_cidr_block" {
-  type        = "string"
+  type        = string
   description = "Optional IP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size."
   default     = ""
 }
