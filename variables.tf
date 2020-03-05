@@ -1,12 +1,18 @@
 variable "location" {
-  default = "europe-west3-c"
+  description = "Default GCP zone"
+  default     = "europe-west3-c"
+  type        = string
 }
 
 variable "region" {
-  default = "europe-west3"
+  description = "GCP region"
+  default     = "europe-west3"
+  type        = string
 }
 
 variable "project" {
+  description = "GCP project name"
+  type        = string
 }
 
 variable "cluster_name" {
@@ -16,36 +22,50 @@ variable "cluster_name" {
 }
 
 variable "namespace" {
-  default = "production"
+  description = "Default namespace to be created after GKE start"
+  default     = "production"
+  type        = string
 }
 
 variable "machine_type" {
-  default = "n1-standard-1"
+  description = "Default machine type to be used in GKE nodepool"
+  default     = "n1-standard-1"
+  type        = string
 }
 
 variable "private" {
-  default = false
-  type    = bool
+  description = "Flag stating if module should also create NAT & routing, also the nodes do not obtain public IP addresses"
+  default     = false
+  type        = bool
 }
 
 variable "private_master" {
-  default = false
-  type    = bool
+  description = "Flag to put endpoint into private subnet"
+  default     = false
+  type        = bool
 }
 
 variable "sealed_secrets_version" {
-  default = "v1.6.1"
+  type        = string
+  description = "Version of sealed secret helm chart"
+  default     = "v1.6.1"
 }
 
 variable "min_nodes" {
-  default = 1
+  description = "Minimum number of nodes deployed in initial node pool"
+  default     = 1
+  type        = number
 }
 
 variable "max_nodes" {
-  default = 1
+  description = "Maximum number of nodes deployed in initial node pool"
+  default     = 1
+  type        = number
 }
 
 variable "vault_secret_path" {
+  description = "Path to secret in local vault, used mainly to save gke credentials"
+  type        = string
 }
 
 variable "enable_traefik" {
@@ -63,11 +83,13 @@ variable "traefik_version" {
 variable "auto_repair" {
   description = "Allow auto repair of node pool"
   default     = true
+  type        = bool
 }
 
 variable "auto_upgrade" {
   description = "Allow auto upgrade of node pool"
   default     = false
+  type        = bool
 }
 
 variable "upgrade_settings" {
