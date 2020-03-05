@@ -70,7 +70,7 @@ variable "auto_upgrade" {
 
 variable "upgrade_settings" {
   description = "Upgrade settings for node pool of GKE"
-  default     = {}
+  default     = null
 }
 
 variable "traefik_custom_values" {
