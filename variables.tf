@@ -9,6 +9,12 @@ variable "region" {
 variable "project" {
 }
 
+variable "cluster_name" {
+  description = "Name of GKE cluster, if not used, var.project is used instead"
+  default     = ""
+  type        = string
+}
+
 variable "namespace" {
   default = "production"
 }

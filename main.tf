@@ -1,5 +1,5 @@
 resource "google_container_cluster" "primary" {
-  name               = var.project
+  name               = var.cluster_name == "" ? var.project : var.cluster_name
   location           = var.location
   project            = var.project
   min_master_version = data.google_container_engine_versions.current.latest_master_version
