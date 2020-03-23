@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.9.0] - 2020-03-23
+### Added
+- Add optional parameters `cluster_name` in case multiple clusters need to be deployed in the project
+
 ## [v5.8.1] - 2020-02-05
 - Fix of wrong TF comparison between empty map and null for update nodepool settings
 
