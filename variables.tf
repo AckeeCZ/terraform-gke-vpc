@@ -37,10 +37,6 @@ variable "sealed_secrets_version" {
   default = "v1.6.1"
 }
 
-variable "tiller_image" {
-  default = "gcr.io/kubernetes-helm/tiller:v2.15.1"
-}
-
 variable "min_nodes" {
   default = 1
 }
@@ -60,7 +56,7 @@ variable "enable_traefik" {
 
 variable "traefik_version" {
   description = "Version number of helm chart"
-  default     = "1.7.2"
+  default     = "7.1.0"
   type        = string
 }
 
