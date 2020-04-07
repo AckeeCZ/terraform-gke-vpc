@@ -56,7 +56,7 @@ variable "enable_traefik" {
 
 variable "traefik_version" {
   description = "Version number of helm chart"
-  default     = "7.1.0"
+  default     = "1.7.2"
   type        = string
 }
 
