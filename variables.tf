@@ -37,10 +37,6 @@ variable "sealed_secrets_version" {
   default = "v1.6.1"
 }
 
-variable "tiller_image" {
-  default = "gcr.io/kubernetes-helm/tiller:v2.15.1"
-}
-
 variable "min_nodes" {
   default = 1
 }

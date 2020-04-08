@@ -15,7 +15,7 @@ provider "google-beta" {
 }
 
 provider "helm" {
-  version = "~> 0.10.4"
+  version = "~> 1.1.1"
   kubernetes {
     load_config_file = false
     host             = "https://${google_container_cluster.primary.endpoint}"
@@ -25,9 +25,4 @@ provider "helm" {
 
     cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth.0.cluster_ca_certificate)
   }
-  override = [
-    "spec.template.spec.containers[0].command={/tiller,--storage=secret}"
-  ]
-  service_account = "tiller-service-account"
-  tiller_image    = var.tiller_image
 }

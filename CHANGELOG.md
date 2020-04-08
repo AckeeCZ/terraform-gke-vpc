@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v6.0.0] - 2020-04-17
+### Changed
+- Upgrade Helm provider to version `~> 1.1.1` to suport Helm v3 migration. Upgrade path: https://redmine.ack.ee/issues/39907#note-11
+- From this version, ONLY HELM V3 IS SUPPORTED
+### Added
+- Add `https://containous.github.io/traefik-helm-chart` Helm repository - preparation for Traefik 2 migration (https://redmine.ack.ee/issues/43876)
+
 ## [v5.9.0] - 2020-03-23
 ### Added
 - Add optional parameters `cluster_name` in case multiple clusters need to be deployed in the project
