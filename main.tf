@@ -124,7 +124,7 @@ resource "google_compute_router_nat" "advanced-nat" {
 }
 
 provider "kubernetes" {
-  version = "~> 1.10.0"
+  version = "~> 1.11.0"
 
   load_config_file = false
   host             = "https://${google_container_cluster.primary.endpoint}"
