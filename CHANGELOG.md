@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v6.0.0] - 2020-04-17
+## [v6.1.0] - 2020-04-15
+### Changed
+- Upgrade Kubernetes provider lock to `~> 1.11.0`
+
+## [v6.0.0] - 2020-04-08
 ### Changed
 - Upgrade Helm provider to version `~> 1.1.1` to suport Helm v3 migration. Upgrade path: https://redmine.ack.ee/issues/39907#note-11
 - From this version, ONLY HELM V3 IS SUPPORTED
