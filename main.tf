@@ -44,6 +44,9 @@ resource "google_container_cluster" "primary" {
       start_time = "01:00"
     }
   }
+  vertical_pod_autoscaling {
+    enabled = var.vertical_pod_autoscaling
+  }
 }
 
 resource "google_container_node_pool" "ackee_pool" {
