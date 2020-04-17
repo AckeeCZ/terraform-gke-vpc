@@ -104,3 +104,9 @@ variable "services_ipv4_cidr_block" {
   description = "Optional IP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size."
   default     = ""
 }
+
+variable "vertical_pod_autoscaling" {
+  description = "Allow auto upgrade of node pool"
+  default     = false
+  type        = bool
+}

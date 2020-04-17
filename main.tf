@@ -1,4 +1,5 @@
 resource "google_container_cluster" "primary" {
+  provider           = google-beta
   name               = var.cluster_name == "" ? var.project : var.cluster_name
   location           = var.location
   project            = var.project
@@ -43,6 +44,9 @@ resource "google_container_cluster" "primary" {
     daily_maintenance_window {
       start_time = "01:00"
     }
+  }
+  vertical_pod_autoscaling {
+    enabled = var.vertical_pod_autoscaling
   }
 }
 
