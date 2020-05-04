@@ -1,5 +1,4 @@
 resource "google_container_cluster" "primary" {
-  provider           = google-beta
   name               = var.cluster_name == "" ? var.project : var.cluster_name
   location           = var.location
   project            = var.project
@@ -51,7 +50,6 @@ resource "google_container_cluster" "primary" {
 }
 
 resource "google_container_node_pool" "ackee_pool" {
-  provider = google-beta
 
   name     = "ackee-pool"
   location = var.location
@@ -125,20 +123,6 @@ resource "google_compute_router_nat" "advanced-nat" {
   nat_ips                            = [google_compute_address.outgoing-traffic[0].self_link]
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
   count                              = var.private ? 1 : 0
-}
-
-provider "kubernetes" {
-  version = "~> 1.11.0"
-
-  load_config_file = false
-  host             = "https://${google_container_cluster.primary.endpoint}"
-
-  username = random_string.cluster_username.result
-  password = random_string.cluster_password.result
-
-  cluster_ca_certificate = base64decode(
-    google_container_cluster.primary.master_auth[0].cluster_ca_certificate,
-  )
 }
 
 resource "kubernetes_namespace" "main" {
