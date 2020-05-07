@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v6.3.0] - 2020-05-04
+### Changed
+- Upgrade Google GA provider lock to `~> 3.19.0`, remove `google-beta` provider as all needed versions are now in GA. Note: this upgrade should need upgrade of other TF modules to satisfy same version of `google` provider. For compatible versions, see: https://redmine.ack.ee/issues/43227#note-11
+
 ## [v6.2.0] - 2020-04-16
 ### Added
 - Add support for Vertical Pod Autoscaler, controlled by `vertical_pod_autoscaling` variable with default value of true
