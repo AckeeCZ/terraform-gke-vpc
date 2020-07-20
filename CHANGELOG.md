@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v6.6.1] - 2020-07-20
+### Changed
+- `disk_size_gb` is numeric value - fix previous version
+- sealed-secrets Helm chart is now called without stable prefix - fix previous version
+
 ## [v6.6.0] - 2020-07-20
 ### Added
 - `disk_size_gb` variable to set default disk size of node pool

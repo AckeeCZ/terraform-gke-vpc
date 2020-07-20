@@ -1,6 +1,6 @@
 resource "helm_release" "sealed_secrets" {
   name    = "sealed-secrets-controller"
-  chart   = "stable/sealed-secrets"
+  chart   = "sealed-secrets"
   version = var.sealed_secrets_version
 
   namespace = "kube-system"

@@ -135,6 +135,6 @@ variable "vertical_pod_autoscaling" {
 
 variable "disk_size_gb" {
   description = "Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB."
-  default     = "100GB"
-  type        = string
+  default     = 100
+  type        = number
 }
