@@ -1,8 +1,3 @@
-data "helm_repository" "traefik" {
-  name = "traefik"
-  url  = "https://containous.github.io/traefik-helm-chart"
-}
-
 resource "helm_release" "traefik" {
   count = var.enable_traefik ? 1 : 0
 
@@ -20,7 +15,7 @@ resource "helm_release" "traefik" {
     }
   }
 
-  repository = data.helm_repository.traefik.metadata[0].name
+  repository = "https://containous.github.io/traefik-helm-chart"
 
   depends_on = [
     google_container_node_pool.ackee_pool
