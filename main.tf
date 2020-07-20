@@ -95,7 +95,7 @@ resource "google_container_node_pool" "ackee_pool" {
 
     preemptible  = false
     machine_type = var.machine_type
-
+    disk_size_gb = var.disk_size_gb
   }
 }
 

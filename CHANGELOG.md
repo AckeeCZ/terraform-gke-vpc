@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v6.6.0] - 2020-07-20
+### Added
+- `disk_size_gb` variable to set default disk size of node pool
+
 ## [v6.5.0] - 2020-07-20
 ### Changed
 - Upgrade Helm provider lock to `~> 1.2.3`

@@ -71,6 +71,7 @@ the environment.
 | auto\_upgrade | Allow auto upgrade of node pool | `bool` | `false` | no |
 | cluster\_ipv4\_cidr\_block | Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
 | cluster\_name | Name of GKE cluster, if not used, var.project is used instead | `string` | `""` | no |
+| disk\_size\_gb | Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB. | `string` | `"100GB"` | no |
 | enable\_traefik | Enable traefik helm chart for VPC | `bool` | `false` | no |
 | location | Default GCP zone | `string` | `"europe-west3-c"` | no |
 | machine\_type | Default machine type to be used in GKE nodepool | `string` | `"n1-standard-1"` | no |
