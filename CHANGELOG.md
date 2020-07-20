@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v6.5.0] - 2020-07-20
+### Changed
+- Upgrade Helm provider lock to `~> 1.2.3`
+### Removed
+- Removed `helm_repository` declaration, because it is deprecated now
+
 ## [v6.4.0] - 2020-05-12
 ### Added
 - Add example folder

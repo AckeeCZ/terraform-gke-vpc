@@ -7,6 +7,7 @@ resource "helm_release" "sealed_secrets" {
   depends_on = [
     google_container_node_pool.ackee_pool
   ]
+  repository = "https://kubernetes-charts.storage.googleapis.com"
 
 }
 

@@ -25,7 +25,7 @@ provider "kubernetes" {
 }
 
 provider "helm" {
-  version = "~> 1.1.1"
+  version = "~> 1.2.3"
   kubernetes {
     load_config_file = false
     host             = "https://${google_container_cluster.primary.endpoint}"

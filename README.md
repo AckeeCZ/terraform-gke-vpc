@@ -48,7 +48,7 @@ the environment.
 |------|---------|
 | terraform | >= 0.12 |
 | google | ~> 3.19.0 |
-| helm | ~> 1.1.1 |
+| helm | ~> 1.2.3 |
 | kubernetes | ~> 1.11.0 |
 | random | ~> 2.1 |
 | vault | ~> 2.7.1 |
@@ -58,7 +58,7 @@ the environment.
 | Name | Version |
 |------|---------|
 | google | ~> 3.19.0 |
-| helm | ~> 1.1.1 |
+| helm | ~> 1.2.3 |
 | kubernetes | ~> 1.11.0 |
 | random | ~> 2.1 |
 | vault | ~> 2.7.1 |
