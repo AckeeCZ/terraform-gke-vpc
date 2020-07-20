@@ -59,6 +59,7 @@ the environment.
 |------|---------|
 | google | ~> 3.19.0 |
 | helm | ~> 1.2.3 |
+| http | n/a |
 | kubernetes | ~> 1.11.0 |
 | random | ~> 2.1 |
 | vault | ~> 2.7.1 |
@@ -72,9 +73,11 @@ the environment.
 | cluster\_ipv4\_cidr\_block | Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
 | cluster\_name | Name of GKE cluster, if not used, var.project is used instead | `string` | `""` | no |
 | disk\_size\_gb | Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB. | `number` | `100` | no |
+| enable\_master\_local\_access | Enable access to Kubernetes control plane from your local public IP | `bool` | `false` | no |
 | enable\_traefik | Enable traefik helm chart for VPC | `bool` | `false` | no |
 | location | Default GCP zone | `string` | `"europe-west3-c"` | no |
 | machine\_type | Default machine type to be used in GKE nodepool | `string` | `"n1-standard-1"` | no |
+| master\_authorized\_networks | List of maps of strings authorized networks allowed to connect to Kubernetes control plane, example: [{name: the\_office, cidr: 1.2.3.4/31}] | `list(map(string))` | <pre>[<br>  {<br>    "cidr": "212.24.155.78/32",<br>    "name": "Ackee office"<br>  }<br>]</pre> | no |
 | max\_nodes | Maximum number of nodes deployed in initial node pool | `number` | `1` | no |
 | min\_nodes | Minimum number of nodes deployed in initial node pool | `number` | `1` | no |
 | namespace | Default namespace to be created after GKE start | `string` | `"production"` | no |

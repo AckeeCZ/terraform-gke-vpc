@@ -138,3 +138,21 @@ variable "disk_size_gb" {
   default     = 100
   type        = number
 }
+
+variable "enable_master_local_access" {
+  description = "Enable access to Kubernetes control plane from your local public IP"
+  default     = false
+  type        = bool
+}
+
+
+variable "master_authorized_networks" {
+  description = "List of maps of strings authorized networks allowed to connect to Kubernetes control plane, example: [{name: the_office, cidr: 1.2.3.4/31}]"
+  default = [
+    {
+      name : "Ackee office"
+      cidr : "212.24.155.78/32"
+    }
+  ]
+  type = list(map(string))
+}

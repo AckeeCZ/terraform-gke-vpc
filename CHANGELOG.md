@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v6.7.0] - 2020-07-20
+### Added
+- Add parameter `master_authorized_networks` to allow external public connections. Defaults to Ackee office IP to allow deployments
+- Add parameter `enable_master_local_access` which can automatically add your public IP as authorized for Kubernetes control plane access
+### Removed
+- Remove 0.0.0.0/0 as authorized network for Kubernetes control plane
+
 ## [v6.6.1] - 2020-07-20
 ### Changed
 - `disk_size_gb` is numeric value - fix previous version

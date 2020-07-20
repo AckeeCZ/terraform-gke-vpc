@@ -1,3 +1,10 @@
+data "http" "myip" {
+  url = "https://api.myip.com/"
+  request_headers = {
+    Accept = "application/json"
+  }
+}
+
 resource "google_container_cluster" "primary" {
   name               = var.cluster_name == "" ? var.project : var.cluster_name
   location           = var.location
@@ -33,9 +40,19 @@ resource "google_container_cluster" "primary" {
   }
 
   master_authorized_networks_config {
-    cidr_blocks {
-      cidr_block   = "0.0.0.0/0"
-      display_name = "world"
+    dynamic "cidr_blocks" {
+      for_each = var.enable_master_local_access ? [1] : []
+      content {
+        display_name = "local_tf_connection"
+        cidr_block   = "${chomp(jsondecode(data.http.myip.body).ip)}/32"
+      }
+    }
+    dynamic "cidr_blocks" {
+      for_each = var.master_authorized_networks
+      content {
+        display_name = cidr_blocks.value.name
+        cidr_block   = cidr_blocks.value.cidr
+      }
     }
   }
 
