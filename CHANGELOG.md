@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v7.0.0] - 2020-07-21
+### Added
+- `network` variable allows to specify VPC network name
+- `private_master_subnet` variable allows to specify subnet of private GKE master. It must be unique within VPC network and must be /28 mask
+### Changed
+- Firewall rule for sealed-secrets changed it's name so we can deploy multiple private clusters
+- Cloud router changed it's name so we can deploy multiple private clusters - this is breaking change and cause downtime on private GKE cluster!
+- NAT GW changed it's name so we can deploy multiple private clusters - this is breaking change and cause downtime on private GKE cluster!
+- Static IP used for NAT GW changed it's name so we can deploy multiple private clusters - this is breaking change and cause downtime on private GKE cluster!
+- Vault secret changed it's path so we can deploy multiple private clusters - this is breaking change and cause downtime on private GKE cluster!
+
 ## [v6.6.1] - 2020-07-20
 ### Changed
 - `disk_size_gb` is numeric value - fix previous version

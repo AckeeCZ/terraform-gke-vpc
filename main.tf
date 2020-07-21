@@ -24,7 +24,7 @@ resource "google_container_cluster" "primary" {
   private_cluster_config {
     enable_private_endpoint = var.private_master
     enable_private_nodes    = var.private
-    master_ipv4_cidr_block  = var.private ? "172.16.0.0/28" : null
+    master_ipv4_cidr_block  = var.private ? var.private_master_subnet : null
   }
 
   ip_allocation_policy {
@@ -100,7 +100,7 @@ resource "google_container_node_pool" "ackee_pool" {
 }
 
 resource "google_compute_router" "router" {
-  name    = "router01"
+  name    = "router-${var.region}"
   region  = var.region
   project = var.project
   network = data.google_compute_network.default.self_link
@@ -108,14 +108,14 @@ resource "google_compute_router" "router" {
 }
 
 resource "google_compute_address" "outgoing-traffic" {
-  name    = "nat-external-address-eu"
+  name    = "nat-external-address-${var.region}"
   region  = var.region
   project = var.project
   count   = var.private ? 1 : 0
 }
 
 resource "google_compute_router_nat" "advanced-nat" {
-  name                               = "nat01"
+  name                               = "nat-gw-${var.region}"
   router                             = google_compute_router.router[0].name
   region                             = var.region
   project                            = var.project

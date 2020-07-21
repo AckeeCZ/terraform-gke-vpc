@@ -78,8 +78,10 @@ the environment.
 | max\_nodes | Maximum number of nodes deployed in initial node pool | `number` | `1` | no |
 | min\_nodes | Minimum number of nodes deployed in initial node pool | `number` | `1` | no |
 | namespace | Default namespace to be created after GKE start | `string` | `"production"` | no |
+| network | Name of VPC network we are deploying to | `string` | `"default"` | no |
 | private | Flag stating if module should also create NAT & routing, also the nodes do not obtain public IP addresses | `bool` | `false` | no |
 | private\_master | Flag to put endpoint into private subnet | `bool` | `false` | no |
+| private\_master\_subnet | Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask | `string` | `"172.16.0.0/28"` | no |
 | project | GCP project name | `string` | n/a | yes |
 | region | GCP region | `string` | `"europe-west3"` | no |
 | sealed\_secrets\_version | Version of sealed secret helm chart | `string` | `"v1.6.1"` | no |

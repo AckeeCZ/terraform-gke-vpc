@@ -15,7 +15,7 @@ resource "random_string" "cluster_username" {
 
 data "google_compute_network" "default" {
   project = var.project
-  name    = "default"
+  name    = var.network
 }
 
 data "google_container_cluster" "primary" {
