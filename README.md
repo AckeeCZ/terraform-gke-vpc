@@ -4,7 +4,19 @@ Terraform module for provisioning of GKE cluster with VPC-native nodes and suppo
 
 ## Private networking
 
-Turned on with parameter `private`, this module reserves public IP, creates Cloud NAT gateway named `nat01` and Cloud router named `router01` and routes all egress traffic from cluster via NAT gateway.
+Private GKE cluster creation is divided into few parts:
+
+### Private nodes
+
+Turned on with parameter `private`, all GKE nodes are created without public and thus without route to internet
+
+### Cloud NAT gateway and Cloud Router
+
+Turned on with parameter `create_nat_gw`, this module reserves public IP, creates Cloud NAT gateway named `"nat-gw-${var.region}"` and Cloud router named `router-${var.region}` and routes all egress traffic from cluster via NAT gateway. There should always be only one NAT GW per region inside one VPC network. So if we create more private clusters in one region, we must turn this parameter to true on first cluster and to false on second one.
+
+### Private master
+
+This module creates GKE master with private address in subnet specified by parameter `private_master_subnet`. This subnet is then routed to VPC network through VPC peering. Thus every cluster in on VPC network must have unique `private_master_subnet`. Turned on with parameter `private_master`, GKE master gets only private IP address. Setting this to `true` is currently not supported by our toolkit
 
 ## Node pools and node counts
 
@@ -16,14 +28,17 @@ Amount of nodes is defined by `min_nodes` and `max_nodes` parameters, which set 
 
 ```hcl
 module "gke" {
-  source            = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v6.0.0"
-  namespace         = var.namespace
-  project           = var.project
-  location          = var.location
-  private           = false
-  vault_secret_path = var.vault_secret_path
-  min_nodes         = 1
-  max_nodes         = 2
+  source                   = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v7.0.0"
+  namespace                = var.namespace
+  project                  = var.project
+  location                 = var.zone
+  min_nodes                = 1
+  max_nodes                = 2
+  private                  = true
+  create_nat_gw            = true
+  vault_secret_path        = var.vault_secret_path
+  vertical_pod_autoscaling = true
+  private_master_subnet    = "172.16.0.16/28"
 }
 ```
 
@@ -71,6 +86,7 @@ the environment.
 | auto\_upgrade | Allow auto upgrade of node pool | `bool` | `false` | no |
 | cluster\_ipv4\_cidr\_block | Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
 | cluster\_name | Name of GKE cluster, if not used, var.project is used instead | `string` | `""` | no |
+| create\_nat\_gw | Flag stating if module should create Cloud NAT GW & Cloud Router. There should be only one NAT GW per region. | `bool` | `false` | no |
 | disk\_size\_gb | Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB. | `number` | `100` | no |
 | enable\_traefik | Enable traefik helm chart for VPC | `bool` | `false` | no |
 | location | Default GCP zone | `string` | `"europe-west3-c"` | no |
@@ -79,8 +95,8 @@ the environment.
 | min\_nodes | Minimum number of nodes deployed in initial node pool | `number` | `1` | no |
 | namespace | Default namespace to be created after GKE start | `string` | `"production"` | no |
 | network | Name of VPC network we are deploying to | `string` | `"default"` | no |
-| private | Flag stating if module should also create NAT & routing, also the nodes do not obtain public IP addresses | `bool` | `false` | no |
-| private\_master | Flag to put endpoint into private subnet | `bool` | `false` | no |
+| private | Flag stating if nodes do not obtain public IP addresses - without turning on create\_nat\_gw parameter, private nodes are not able to reach internet | `bool` | `false` | no |
+| private\_master | Flag to put GKE master endpoint ONLY into private subnet. Setting to `false` will create both public and private endpoint. Setting to `true` is currently not supported by Ackee toolkit | `bool` | `false` | no |
 | private\_master\_subnet | Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask | `string` | `"172.16.0.0/28"` | no |
 | project | GCP project name | `string` | n/a | yes |
 | region | GCP region | `string` | `"europe-west3"` | no |

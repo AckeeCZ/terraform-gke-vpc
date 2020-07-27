@@ -104,14 +104,14 @@ resource "google_compute_router" "router" {
   region  = var.region
   project = var.project
   network = data.google_compute_network.default.self_link
-  count   = var.private ? 1 : 0
+  count   = var.create_nat_gw ? 1 : 0
 }
 
 resource "google_compute_address" "outgoing-traffic" {
   name    = "nat-external-address-${var.region}"
   region  = var.region
   project = var.project
-  count   = var.private ? 1 : 0
+  count   = var.create_nat_gw ? 1 : 0
 }
 
 resource "google_compute_router_nat" "advanced-nat" {
@@ -122,7 +122,7 @@ resource "google_compute_router_nat" "advanced-nat" {
   nat_ip_allocate_option             = "MANUAL_ONLY"
   nat_ips                            = [google_compute_address.outgoing-traffic[0].self_link]
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
-  count                              = var.private ? 1 : 0
+  count                              = var.create_nat_gw ? 1 : 0
 }
 
 resource "kubernetes_namespace" "main" {

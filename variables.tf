@@ -109,14 +109,8 @@ variable "network" {
   default     = "default"
 }
 
-variable "private" {
-  description = "Flag stating if module should also create NAT & routing, also the nodes do not obtain public IP addresses"
-  default     = false
-  type        = bool
-}
-
 variable "private_master" {
-  description = "Flag to put endpoint into private subnet"
+  description = "Flag to put GKE master endpoint ONLY into private subnet. Setting to `false` will create both public and private endpoint. Setting to `true` is currently not supported by Ackee toolkit"
   default     = false
   type        = bool
 }
@@ -125,6 +119,18 @@ variable "private_master_subnet" {
   description = "Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask"
   default     = "172.16.0.0/28"
   type        = string
+}
+
+variable "private" {
+  description = "Flag stating if nodes do not obtain public IP addresses - without turning on create_nat_gw parameter, private nodes are not able to reach internet"
+  default     = false
+  type        = bool
+}
+
+variable "create_nat_gw" {
+  description = "Flag stating if module should create Cloud NAT GW & Cloud Router. There should be only one NAT GW per region."
+  default     = false
+  type        = bool
 }
 
 variable "cluster_ipv4_cidr_block" {
