@@ -16,8 +16,8 @@ Creating GKE cluster with private nodes means they have not internet connection.
 
 ```
 resource "google_compute_address" "outgoing_traffic_europe_west3" {
-  name    = "nat-external-address-europe_west3"
-  region  = "europe_west3"
+  name    = "nat-external-address-europe-west3"
+  region  = var.region
   project = var.project
 }
 
@@ -25,11 +25,11 @@ module "cloud-nat" {
   source        = "terraform-google-modules/cloud-nat/google"
   version       = "~> 1.2"
   project_id    = var.project
-  region        = "europe_west3"
+  region        = var.region
   create_router = true
   network       = "default"
   router        = "nat-router"
-  nat_ips       = ["google_compute_address.outgoing_traffic_europe_west3.self_link"]
+  nat_ips       = [google_compute_address.outgoing_traffic_europe_west3.self_link]
 }
 ```
 
