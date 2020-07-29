@@ -8,15 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `network` variable allows to specify VPC network name
 - `private_master_subnet` variable allows to specify subnet of private GKE master. It must be unique within VPC network and must be /28 mask
-- `create_nat_gw` indicate if we also want to create Cloud NAT GW and Cloud router, which will then be used to router internet traffic from GKE nodes (and pods). There should be only one Cloud NAT GW per region
 ### Changed
 - Firewall rule for sealed-secrets changed it's name so we can deploy multiple private clusters
-### Breaking changes
-- All following changes were made to enable deploying private GKE clusters in multiple zones can cause downtime on existing private GKE clusters :
-- Cloud router changed it's name so we can deploy multiple private clusters
-- NAT GW changed it's name so we can deploy multiple private clusters
-- Static IP used for NAT GW changed it's name so we can deploy private clusters in multiple
 - Vault secret changed it's path so we can deploy multiple private clusters
+### Breaking changes
+- Remove Cloud NAT GW creation, instead add example how to utilize https://github.com/terraform-google-modules/terraform-google-cloud-nat - this affects private clusters which must first delete and then recreate NAT GW with external module
 
 ## [v6.6.1] - 2020-07-20
 ### Changed

@@ -127,12 +127,6 @@ variable "private" {
   type        = bool
 }
 
-variable "create_nat_gw" {
-  description = "Flag stating if module should create Cloud NAT GW & Cloud Router. There should be only one NAT GW per region."
-  default     = false
-  type        = bool
-}
-
 variable "cluster_ipv4_cidr_block" {
   type        = string
   description = "Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size."

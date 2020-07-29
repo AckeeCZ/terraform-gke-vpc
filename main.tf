@@ -99,32 +99,6 @@ resource "google_container_node_pool" "ackee_pool" {
   }
 }
 
-resource "google_compute_router" "router" {
-  name    = "router-${var.region}"
-  region  = var.region
-  project = var.project
-  network = data.google_compute_network.default.self_link
-  count   = var.create_nat_gw ? 1 : 0
-}
-
-resource "google_compute_address" "outgoing-traffic" {
-  name    = "nat-external-address-${var.region}"
-  region  = var.region
-  project = var.project
-  count   = var.create_nat_gw ? 1 : 0
-}
-
-resource "google_compute_router_nat" "advanced-nat" {
-  name                               = "nat-gw-${var.region}"
-  router                             = google_compute_router.router[0].name
-  region                             = var.region
-  project                            = var.project
-  nat_ip_allocate_option             = "MANUAL_ONLY"
-  nat_ips                            = [google_compute_address.outgoing-traffic[0].self_link]
-  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
-  count                              = var.create_nat_gw ? 1 : 0
-}
-
 resource "kubernetes_namespace" "main" {
   metadata {
     name = var.namespace

@@ -12,7 +12,26 @@ Turned on with parameter `private`, all GKE nodes are created without public and
 
 ### Cloud NAT gateway and Cloud Router
 
-Turned on with parameter `create_nat_gw`, this module reserves public IP, creates Cloud NAT gateway named `"nat-gw-${var.region}"` and Cloud router named `router-${var.region}` and routes all egress traffic from cluster via NAT gateway. There should always be only one NAT GW per region inside one VPC network. So if we create more private clusters in one region, we must turn this parameter to true on first cluster and to false on second one.
+Creating GKE cluster with private nodes means they have not internet connection. Creating of NAT GW is no longer part of this module. You can use upstream Google Terraform module like this :
+
+```
+resource "google_compute_address" "outgoing_traffic_europe_west3" {
+  name    = "nat-external-address-europe_west3"
+  region  = "europe_west3"
+  project = var.project
+}
+
+module "cloud-nat" {
+  source        = "terraform-google-modules/cloud-nat/google"
+  version       = "~> 1.2"
+  project_id    = var.project
+  region        = "europe_west3"
+  create_router = true
+  network       = "default"
+  router        = "nat-router"
+  nat_ips       = ["google_compute_address.outgoing_traffic_europe_west3.self_link"]
+}
+```
 
 ### Private master
 
@@ -86,7 +105,6 @@ the environment.
 | auto\_upgrade | Allow auto upgrade of node pool | `bool` | `false` | no |
 | cluster\_ipv4\_cidr\_block | Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
 | cluster\_name | Name of GKE cluster, if not used, var.project is used instead | `string` | `""` | no |
-| create\_nat\_gw | Flag stating if module should create Cloud NAT GW & Cloud Router. There should be only one NAT GW per region. | `bool` | `false` | no |
 | disk\_size\_gb | Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB. | `number` | `100` | no |
 | enable\_traefik | Enable traefik helm chart for VPC | `bool` | `false` | no |
 | location | Default GCP zone | `string` | `"europe-west3-c"` | no |
