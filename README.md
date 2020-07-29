@@ -4,7 +4,38 @@ Terraform module for provisioning of GKE cluster with VPC-native nodes and suppo
 
 ## Private networking
 
-Turned on with parameter `private`, this module reserves public IP, creates Cloud NAT gateway named `nat01` and Cloud router named `router01` and routes all egress traffic from cluster via NAT gateway.
+Private GKE cluster creation is divided into few parts:
+
+### Private nodes
+
+Turned on with parameter `private`, all GKE nodes are created without public and thus without route to internet
+
+### Cloud NAT gateway and Cloud Router
+
+Creating GKE cluster with private nodes means they have not internet connection. Creating of NAT GW is no longer part of this module. You can use upstream Google Terraform module like this :
+
+```
+resource "google_compute_address" "outgoing_traffic_europe_west3" {
+  name    = "nat-external-address-europe_west3"
+  region  = "europe_west3"
+  project = var.project
+}
+
+module "cloud-nat" {
+  source        = "terraform-google-modules/cloud-nat/google"
+  version       = "~> 1.2"
+  project_id    = var.project
+  region        = "europe_west3"
+  create_router = true
+  network       = "default"
+  router        = "nat-router"
+  nat_ips       = ["google_compute_address.outgoing_traffic_europe_west3.self_link"]
+}
+```
+
+### Private master
+
+This module creates GKE master with private address in subnet specified by parameter `private_master_subnet`. This subnet is then routed to VPC network through VPC peering. Thus every cluster in on VPC network must have unique `private_master_subnet`. Turned on with parameter `private_master`, GKE master gets only private IP address. Setting this to `true` is currently not supported by our toolkit
 
 ## Node pools and node counts
 
@@ -16,14 +47,17 @@ Amount of nodes is defined by `min_nodes` and `max_nodes` parameters, which set 
 
 ```hcl
 module "gke" {
-  source            = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v6.0.0"
-  namespace         = var.namespace
-  project           = var.project
-  location          = var.location
-  private           = false
-  vault_secret_path = var.vault_secret_path
-  min_nodes         = 1
-  max_nodes         = 2
+  source                   = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v7.0.0"
+  namespace                = var.namespace
+  project                  = var.project
+  location                 = var.zone
+  min_nodes                = 1
+  max_nodes                = 2
+  private                  = true
+  create_nat_gw            = true
+  vault_secret_path        = var.vault_secret_path
+  vertical_pod_autoscaling = true
+  private_master_subnet    = "172.16.0.16/28"
 }
 ```
 
@@ -78,8 +112,10 @@ the environment.
 | max\_nodes | Maximum number of nodes deployed in initial node pool | `number` | `1` | no |
 | min\_nodes | Minimum number of nodes deployed in initial node pool | `number` | `1` | no |
 | namespace | Default namespace to be created after GKE start | `string` | `"production"` | no |
-| private | Flag stating if module should also create NAT & routing, also the nodes do not obtain public IP addresses | `bool` | `false` | no |
-| private\_master | Flag to put endpoint into private subnet | `bool` | `false` | no |
+| network | Name of VPC network we are deploying to | `string` | `"default"` | no |
+| private | Flag stating if nodes do not obtain public IP addresses - without turning on create\_nat\_gw parameter, private nodes are not able to reach internet | `bool` | `false` | no |
+| private\_master | Flag to put GKE master endpoint ONLY into private subnet. Setting to `false` will create both public and private endpoint. Setting to `true` is currently not supported by Ackee toolkit | `bool` | `false` | no |
+| private\_master\_subnet | Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask | `string` | `"172.16.0.0/28"` | no |
 | project | GCP project name | `string` | n/a | yes |
 | region | GCP region | `string` | `"europe-west3"` | no |
 | sealed\_secrets\_version | Version of sealed secret helm chart | `string` | `"v1.6.1"` | no |
