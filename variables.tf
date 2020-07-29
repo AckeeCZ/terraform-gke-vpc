@@ -140,7 +140,7 @@ variable "services_ipv4_cidr_block" {
 }
 
 variable "vertical_pod_autoscaling" {
-  description = "Allow auto upgrade of node pool"
+  description = "Enable Vertical Pod Autoscaling"
   default     = false
   type        = bool
 }
@@ -149,4 +149,10 @@ variable "disk_size_gb" {
   description = "Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB."
   default     = 100
   type        = number
+}
+
+variable "dns_nodelocal_cache" {
+  type        = bool
+  description = "Enable NodeLocal DNS Cache. This is disruptive operation. All cluster nodes are recreated."
+  default     = false
 }

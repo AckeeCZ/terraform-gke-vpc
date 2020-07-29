@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v7.1.0] - 2020-07-29
+### Added
+- Add NodeLocal DNS Cache turned on by `dns_nodelocal_cache` parameter. **Enabling/Disabling NodeLocal DNSCache in an existing cluster is a disruptive operation. All cluster nodes running GKE 1.15 and higher are recreated.**
+
 ## [v7.0.0] - 2020-07-21
 ### Added
 - `network` variable allows to specify VPC network name
