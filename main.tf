@@ -1,4 +1,5 @@
 resource "google_container_cluster" "primary" {
+  provider           = google-beta
   name               = var.cluster_name == "" ? var.project : var.cluster_name
   location           = var.location
   project            = var.project
@@ -46,6 +47,11 @@ resource "google_container_cluster" "primary" {
   }
   vertical_pod_autoscaling {
     enabled = var.vertical_pod_autoscaling
+  }
+  addons_config {
+    dns_cache_config {
+      enabled = var.dns_nodelocal_cache
+    }
   }
 }
 
