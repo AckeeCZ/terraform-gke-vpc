@@ -84,7 +84,7 @@ the environment.
 | google | ~> 3.19.0 |
 | helm | ~> 1.2.3 |
 | kubernetes | ~> 1.11.0 |
-| random | ~> 2.1 |
+| random | ~> 2.3.0 |
 | vault | ~> 2.7.1 |
 
 ## Providers
@@ -95,7 +95,7 @@ the environment.
 | google-beta | n/a |
 | helm | ~> 1.2.3 |
 | kubernetes | ~> 1.11.0 |
-| random | ~> 2.1 |
+| random | ~> 2.3.0 |
 | vault | ~> 2.7.1 |
 
 ## Inputs
