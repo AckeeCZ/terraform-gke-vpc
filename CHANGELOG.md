@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v7.2.0] - 2020-09-16
 ### Changed
 - Remove providers locking - this should be done in main module in infrastructure repo from now on.
-- Add locking to `example/spinup_testing.sh` script
+- Add locking to `example/main.tf`
 - Remove executable permissions from `example/spinup_testing.sh` - it should never be run directly, but must be used with `source` cmd.
 
 ## [v7.1.1] - 2020-09-10
