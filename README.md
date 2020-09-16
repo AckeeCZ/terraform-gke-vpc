@@ -72,7 +72,7 @@ pre-commit install
 
 ## Example
 
-Simple example on howto use this module could be found at folder `example`. Use `spinup_testing.sh` script to init
+Simple example on howto use this module could be found at folder `example`. Use `source spinup_testing.sh` to init
 the environment.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -81,22 +81,17 @@ the environment.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12 |
-| google | ~> 3.19.0 |
-| helm | ~> 1.2.3 |
-| kubernetes | ~> 1.11.0 |
-| random | ~> 2.3.0 |
-| vault | ~> 2.7.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| google | ~> 3.19.0 |
+| google | n/a |
 | google-beta | n/a |
-| helm | ~> 1.2.3 |
-| kubernetes | ~> 1.11.0 |
-| random | ~> 2.3.0 |
-| vault | ~> 2.7.1 |
+| helm | n/a |
+| kubernetes | n/a |
+| random | n/a |
+| vault | n/a |
 
 ## Inputs
 

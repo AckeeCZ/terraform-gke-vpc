@@ -1,18 +1,13 @@
 provider "random" {
-  version = "~> 2.3.0"
 }
 
 provider "vault" {
-  version = "~> 2.7.1"
 }
 
 provider "google" {
-  version = "~> 3.19.0"
 }
 
 provider "kubernetes" {
-  version = "~> 1.11.0"
-
   load_config_file = false
   host             = "https://${google_container_cluster.primary.endpoint}"
 
@@ -25,7 +20,6 @@ provider "kubernetes" {
 }
 
 provider "helm" {
-  version = "~> 1.2.3"
   kubernetes {
     load_config_file = false
     host             = "https://${google_container_cluster.primary.endpoint}"

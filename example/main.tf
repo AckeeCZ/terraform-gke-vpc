@@ -6,6 +6,30 @@ provider "tls" {
   version = "~> 2.2.0"
 }
 
+provider "random" {
+  version = "~> 2.3.0"
+}
+
+provider "vault" {
+  version = "~> 2.14.0"
+}
+
+provider "google" {
+  version = "~> 3.39.0"
+}
+
+provider "google-beta" {
+  version = "~> 3.39.0"
+}
+
+provider "kubernetes" {
+  version = "~> 1.13.2"
+}
+
+provider "helm" {
+  version = "~> 1.3.0"
+}
+
 module "gke" {
   source            = "../"
   namespace         = var.namespace
