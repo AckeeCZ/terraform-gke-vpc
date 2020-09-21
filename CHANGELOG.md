@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v9.0.0] - 2021-01-31
+### Removed
+- Remove basic k8s `master_auth`.
+### Added
+- Add access token for k8s `master_auth`.
+- Mutiple cluster in one zone compatibility
+
 ## [v8.2.0] - 2020-12-28
 ### Fixed
 - Fix sealed secrets Helm chart repo URL

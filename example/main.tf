@@ -22,8 +22,34 @@ provider "google-beta" {
   version = "~> 3.55.0"
 }
 
+
+resource "kubernetes_pod" "nginx" {
+  metadata {
+    name = "nginx"
+    labels = {
+      App = "nginx"
+    }
+  }
+
+  spec {
+    container {
+      image = "nginx"
+      name  = "example"
+      port {
+        container_port = 80
+      }
+    }
+  }
+}
+
+data "google_client_config" "default" {}
+
 provider "kubernetes" {
-  version = "~> 1.13.2"
+  load_config_file = "false"
+
+  host                   = module.gke.endpoint
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = module.gke.cluster_ca_certificate
 }
 
 provider "helm" {

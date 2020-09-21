@@ -2,24 +2,23 @@ locals {
   node_pools = merge({
     ackee-pool : {}
   }, var.node_pools)
+  cluster_name = var.cluster_name == "" ? var.project : var.cluster_name
 }
 
 resource "google_container_cluster" "primary" {
   provider           = google-beta
-  name               = var.cluster_name == "" ? var.project : var.cluster_name
+  name               = local.cluster_name
   location           = var.location
   project            = var.project
   min_master_version = data.google_container_engine_versions.current.latest_master_version
 
   remove_default_node_pool = true
   initial_node_count       = 1
+  enable_shielded_nodes    = true
 
   master_auth {
-    username = random_string.cluster_username.result
-    password = random_string.cluster_password.result
-
     client_certificate_config {
-      issue_client_certificate = false
+      issue_client_certificate = true
     }
   }
 
@@ -65,6 +64,7 @@ resource "google_container_node_pool" "ackee_pool" {
   for_each = local.node_pools
 
   name     = each.key
+  project  = var.project
   location = var.location
   cluster  = google_container_cluster.primary.name
 
