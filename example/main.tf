@@ -7,7 +7,7 @@ provider "tls" {
 }
 
 provider "random" {
-  version = "~> 2.3.0"
+  version = "~> 3.0.0"
 }
 
 provider "vault" {
