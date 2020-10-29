@@ -156,3 +156,9 @@ variable "dns_nodelocal_cache" {
   description = "Enable NodeLocal DNS Cache. This is disruptive operation. All cluster nodes are recreated."
   default     = false
 }
+
+variable "node_pools" {
+  type        = map
+  description = "Definition of the node pools, by default uses only ackee_pool"
+  default     = {}
+}

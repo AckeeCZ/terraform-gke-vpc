@@ -110,6 +110,7 @@ the environment.
 | min\_nodes | Minimum number of nodes deployed in initial node pool | `number` | `1` | no |
 | namespace | Default namespace to be created after GKE start | `string` | `"production"` | no |
 | network | Name of VPC network we are deploying to | `string` | `"default"` | no |
+| node\_pools | Definition of the node pools, by default uses only ackee\_pool | `map` | `{}` | no |
 | private | Flag stating if nodes do not obtain public IP addresses - without turning on create\_nat\_gw parameter, private nodes are not able to reach internet | `bool` | `false` | no |
 | private\_master | Flag to put GKE master endpoint ONLY into private subnet. Setting to `false` will create both public and private endpoint. Setting to `true` is currently not supported by Ackee toolkit | `bool` | `false` | no |
 | private\_master\_subnet | Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask | `string` | `"172.16.0.0/28"` | no |

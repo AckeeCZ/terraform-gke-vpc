@@ -39,6 +39,13 @@ module "gke" {
   private           = false
   min_nodes         = 1
   max_nodes         = 2
+
+  node_pools = {
+    highcpu : {
+      machine_type = "n1-highcpu-2"
+      max_nodes    = 1
+    }
+  }
 }
 
 variable "namespace" {
