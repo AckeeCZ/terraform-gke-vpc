@@ -1,3 +1,9 @@
+locals {
+  node_pools = merge({
+    ackee-pool : {}
+  }, var.node_pools)
+}
+
 resource "google_container_cluster" "primary" {
   provider           = google-beta
   name               = var.cluster_name == "" ? var.project : var.cluster_name
@@ -56,8 +62,9 @@ resource "google_container_cluster" "primary" {
 }
 
 resource "google_container_node_pool" "ackee_pool" {
+  for_each = local.node_pools
 
-  name     = "ackee-pool"
+  name     = each.key
   location = var.location
   cluster  = google_container_cluster.primary.name
 
@@ -69,8 +76,8 @@ resource "google_container_node_pool" "ackee_pool" {
   }
 
   autoscaling {
-    max_node_count = var.max_nodes
-    min_node_count = var.min_nodes
+    max_node_count = lookup(each.value, "max_nodes", var.max_nodes)
+    min_node_count = lookup(each.value, "min_nodes", var.min_nodes)
   }
 
   dynamic upgrade_settings {
@@ -100,8 +107,8 @@ resource "google_container_node_pool" "ackee_pool" {
     tags = ["k8s"]
 
     preemptible  = false
-    machine_type = var.machine_type
-    disk_size_gb = var.disk_size_gb
+    machine_type = lookup(each.value, "machine_type", var.machine_type)
+    disk_size_gb = lookup(each.value, "disk_size_gb", var.disk_size_gb)
   }
 }
 
