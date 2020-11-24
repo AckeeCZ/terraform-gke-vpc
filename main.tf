@@ -100,6 +100,15 @@ resource "google_container_node_pool" "ackee_pool" {
       "https://www.googleapis.com/auth/compute.readonly"
     ]
 
+    dynamic "labels" {
+        for_each = lookup(each.value, "labels", [])
+        content {
+          # name  = authorized_networks.value["name"]
+          name  = labels.key
+          value = labels.value
+        }
+      }
+
     metadata = {
       disable-legacy-endpoints = "1"
     }
