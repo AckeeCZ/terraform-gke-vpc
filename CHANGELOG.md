@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v7.3.1] - 2020-12-21
+### Changed
+- Changed sealed secrets resource to be created conditionally
+
 ## [v7.3.0] - 2020-10-29
 ### Changed
 - Changed node pool definition to allow custom nodepools
