@@ -57,6 +57,12 @@ resource "google_container_cluster" "primary" {
     dns_cache_config {
       enabled = var.dns_nodelocal_cache
     }
+    dynamic "istio_config" {
+      for_each = var.enable_istio ? [1] : []
+      content {
+        disabled = false
+      }
+    }
   }
 }
 

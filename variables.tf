@@ -180,3 +180,9 @@ variable "initial_node_count" {
   description = "Number of nodes, when cluster starts"
   default     = 1
 }
+
+variable "enable_istio" {
+  type        = bool
+  description = "Enable ISTIO support on GKE cluster"
+  default     = false
+}
