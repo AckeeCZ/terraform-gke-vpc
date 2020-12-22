@@ -39,6 +39,12 @@ variable "sealed_secrets_version" {
   default     = "v1.6.1"
 }
 
+variable "enable_sealed_secrets" {
+  description = "Create sealed secrets controller"
+  default     = true
+  type        = bool
+}
+
 variable "min_nodes" {
   description = "Minimum number of nodes deployed in initial node pool"
   default     = 1

@@ -1,4 +1,5 @@
 resource "helm_release" "sealed_secrets" {
+  count   = var.enable_sealed_secrets ? 1 : 0
   name    = "sealed-secrets-controller"
   chart   = "sealed-secrets"
   version = var.sealed_secrets_version
@@ -24,5 +25,5 @@ resource "google_compute_firewall" "sealed_secrets_allow" {
   source_ranges = [var.private_master_subnet]
 
   target_tags = ["k8s"]
-  count       = var.private ? 1 : 0
+  count       = var.enable_sealed_secrets && var.private ? 1 : 0
 }
