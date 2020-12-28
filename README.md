@@ -117,7 +117,7 @@ the environment.
 | private\_master\_subnet | Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask | `string` | `"172.16.0.0/28"` | no |
 | project | GCP project name | `string` | n/a | yes |
 | region | GCP region | `string` | `"europe-west3"` | no |
-| sealed\_secrets\_version | Version of sealed secret helm chart | `string` | `"v1.6.1"` | no |
+| sealed\_secrets\_version | Version of sealed secret helm chart | `string` | `"v1.13.2"` | no |
 | services\_ipv4\_cidr\_block | Optional IP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
 | traefik\_custom\_values | Traefik Helm chart custom values list | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | <pre>[<br>  {<br>    "name": "ssl.enabled",<br>    "value": "true"<br>  },<br>  {<br>    "name": "rbac.enabled",<br>    "value": "true"<br>  }<br>]</pre> | no |
 | traefik\_version | Version number of helm chart | `string` | `"1.7.2"` | no |
