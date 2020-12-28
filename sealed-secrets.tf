@@ -8,7 +8,7 @@ resource "helm_release" "sealed_secrets" {
   depends_on = [
     google_container_node_pool.ackee_pool
   ]
-  repository = "https://kubernetes-charts.storage.googleapis.com"
+  repository = "https://bitnami-labs.github.io/sealed-secrets"
 
 }
 
@@ -25,5 +25,5 @@ resource "google_compute_firewall" "sealed_secrets_allow" {
   source_ranges = [var.private_master_subnet]
 
   target_tags = ["k8s"]
-  count   = var.enable_sealed_secrets ? 1 : 0
+  count       = var.enable_sealed_secrets ? 1 : 0
 }
