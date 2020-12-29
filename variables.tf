@@ -36,7 +36,7 @@ variable "machine_type" {
 variable "sealed_secrets_version" {
   type        = string
   description = "Version of sealed secret helm chart"
-  default     = "v1.6.1"
+  default     = "v1.13.2"
 }
 
 variable "enable_sealed_secrets" {
