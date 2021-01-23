@@ -13,6 +13,7 @@ resource "google_container_cluster" "primary" {
 
   remove_default_node_pool = true
   initial_node_count       = 1
+  enable_shielded_nodes    = true
 
   master_auth {
     username = random_string.cluster_username.result
@@ -97,7 +98,8 @@ resource "google_container_node_pool" "ackee_pool" {
       "https://www.googleapis.com/auth/servicecontrol",
       "https://www.googleapis.com/auth/service.management.readonly",
       "https://www.googleapis.com/auth/trace.append",
-      "https://www.googleapis.com/auth/compute.readonly"
+      "https://www.googleapis.com/auth/compute.readonly",
+      "https://www.googleapis.com/auth/cloud-platform"
     ]
 
     metadata = {
