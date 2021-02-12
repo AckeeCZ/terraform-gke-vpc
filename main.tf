@@ -70,6 +70,8 @@ resource "google_container_node_pool" "ackee_pool" {
 
   initial_node_count = 1
 
+  node_locations = lookup(each.value, "node_locations", null)
+
   management {
     auto_repair  = var.auto_repair
     auto_upgrade = var.auto_upgrade
