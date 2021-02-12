@@ -3,14 +3,7 @@ data "google_container_engine_versions" "current" {
   project  = var.project
 }
 
-resource "random_string" "cluster_password" {
-  length  = 16
-  special = false
-}
-
-resource "random_string" "cluster_username" {
-  length  = 16
-  special = false
+data "google_client_config" "default" {
 }
 
 data "google_compute_network" "default" {
@@ -23,4 +16,3 @@ data "google_container_cluster" "primary" {
   location = var.location
   project  = var.project
 }
-

@@ -90,7 +90,6 @@ the environment.
 | google-beta | n/a |
 | helm | n/a |
 | kubernetes | n/a |
-| random | n/a |
 | vault | n/a |
 
 ## Inputs
@@ -129,12 +128,11 @@ the environment.
 
 | Name | Description |
 |------|-------------|
+| access\_token | Client access token used kubeconfig |
 | client\_certificate | Client certificate used kubeconfig |
 | client\_key | Client key used kubeconfig |
 | cluster\_ca\_certificate | Client ca used kubeconfig |
 | cluster\_ipv4\_cidr | The IP address range of the Kubernetes pods in this cluster in CIDR notation |
-| cluster\_password | Cluster master password, keep always secret! |
-| cluster\_username | Cluster master username, keep always secret! |
 | endpoint | Cluster control plane endpoint |
 | instance\_group\_urls | List of instance group URLs which have been assigned to the cluster |
 | node\_pools | List of node pools associated with this cluster |
