@@ -47,7 +47,8 @@ Amount of nodes is defined by `min_nodes` and `max_nodes` parameters, which set 
 
 ```hcl
 module "gke" {
-  source                   = "git::ssh://git@gitlab.ack.ee/Infra/terraform-gke-vpc.git?ref=v7.0.0"
+  source                   = "AckeeCZ/vpc/gke"
+
   namespace                = var.namespace
   project                  = var.project
   location                 = var.zone
