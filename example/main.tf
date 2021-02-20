@@ -19,7 +19,7 @@ provider "google" {
 }
 
 provider "google-beta" {
-  version = "~> 3.56.0"
+  version = "~> 3.57.0"
 }
 
 
