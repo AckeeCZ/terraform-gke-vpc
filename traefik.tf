@@ -15,7 +15,7 @@ resource "helm_release" "traefik" {
     }
   }
 
-  repository = "https://containous.github.io/traefik-helm-chart"
+  repository = "https://helm.traefik.io/traefik"
 
   depends_on = [
     google_container_node_pool.ackee_pool
