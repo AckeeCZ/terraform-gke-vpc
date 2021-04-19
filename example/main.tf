@@ -22,6 +22,12 @@ provider "google-beta" {
   version = "~> 3.64.0"
 }
 
+provider "kubernetes" {
+  version                = "~> 2.0.0"
+  host                   = module.gke.endpoint
+  token                  = module.gke.access_token
+  cluster_ca_certificate = module.gke.cluster_ca_certificate
+}
 
 resource "kubernetes_pod" "nginx" {
   metadata {
@@ -44,17 +50,7 @@ resource "kubernetes_pod" "nginx" {
 
 data "google_client_config" "default" {}
 
-provider "kubernetes" {
-  load_config_file = "false"
 
-  host                   = module.gke.endpoint
-  token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = module.gke.cluster_ca_certificate
-}
-
-provider "helm" {
-  version = "~> 2.1.0"
-}
 
 module "gke" {
   source            = "../"
