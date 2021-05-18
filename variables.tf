@@ -192,3 +192,9 @@ variable "min_master_version" {
   description = "The minimum version of the master"
   default     = null
 }
+
+variable "workload_identity_config" {
+  type        = bool
+  description = "Enable workload identities"
+  default     = false
+}

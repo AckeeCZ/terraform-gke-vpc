@@ -26,15 +26,15 @@ resource "kubernetes_pod" "nginx" {
 data "google_client_config" "default" {}
 
 module "gke" {
-  source            = "../"
-  namespace         = var.namespace
-  project           = var.project
-  location          = var.zone
-  vault_secret_path = var.vault_secret_path
-  private           = false
-  min_nodes         = 1
-  max_nodes         = 2
-
+  source                   = "../"
+  namespace                = var.namespace
+  project                  = var.project
+  location                 = var.zone
+  vault_secret_path        = var.vault_secret_path
+  private                  = false
+  min_nodes                = 1
+  max_nodes                = 2
+  workload_identity_config = false
   node_pools = {
     highcpu : {
       machine_type = "n1-highcpu-2"
