@@ -186,3 +186,9 @@ variable "enable_istio" {
   description = "Enable ISTIO support on GKE cluster"
   default     = false
 }
+
+variable "workload_identity_config" {
+  type        = bool
+  description = "Enable workload identities"
+  default     = false
+}

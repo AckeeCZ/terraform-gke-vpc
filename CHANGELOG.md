@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v9.6.0] - 2021-06-10
 ### Added
 - Add istio configuration block
+- Add workload identity support
 
 ## [v9.5.0] - 2021-05-18
 ### Added
