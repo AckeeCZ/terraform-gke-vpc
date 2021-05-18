@@ -13,7 +13,7 @@ resource "google_container_cluster" "primary" {
   min_master_version = data.google_container_engine_versions.current.latest_master_version
 
   remove_default_node_pool = true
-  initial_node_count       = 1
+  initial_node_count       = var.initial_node_count
   enable_shielded_nodes    = true
 
   master_auth {
@@ -47,7 +47,7 @@ resource "google_container_cluster" "primary" {
 
   maintenance_policy {
     daily_maintenance_window {
-      start_time = "01:00"
+      start_time = var.maintenance_window_time
     }
   }
   vertical_pod_autoscaling {
@@ -68,7 +68,7 @@ resource "google_container_node_pool" "ackee_pool" {
   location = var.location
   cluster  = google_container_cluster.primary.name
 
-  initial_node_count = 1
+  initial_node_count = var.initial_node_count
 
   node_locations = lookup(each.value, "node_locations", null)
 

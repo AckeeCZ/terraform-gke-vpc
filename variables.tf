@@ -168,3 +168,15 @@ variable "node_pools" {
   description = "Definition of the node pools, by default uses only ackee_pool"
   default     = {}
 }
+
+variable "maintenance_window_time" {
+  type        = string
+  description = "Time when the maintenance window begins."
+  default     = "01:00"
+}
+
+variable "initial_node_count" {
+  type        = number
+  description = "Number of nodes, when cluster starts"
+  default     = 1
+}
