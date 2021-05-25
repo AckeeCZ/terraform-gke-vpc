@@ -23,7 +23,7 @@ provider "google-beta" {
 }
 
 provider "kubernetes" {
-  version                = "~> 2.1.0"
+  version                = "~> 2.2.0"
   host                   = module.gke.endpoint
   token                  = module.gke.access_token
   cluster_ca_certificate = module.gke.cluster_ca_certificate
