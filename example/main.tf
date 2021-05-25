@@ -19,7 +19,7 @@ provider "google" {
 }
 
 provider "google-beta" {
-  version = "~> 3.64.0"
+  version = "~> 3.69.0"
 }
 
 provider "kubernetes" {
