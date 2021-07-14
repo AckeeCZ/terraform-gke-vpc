@@ -105,13 +105,16 @@ the environment.
 | dns\_nodelocal\_cache | Enable NodeLocal DNS Cache. This is disruptive operation. All cluster nodes are recreated. | `bool` | `false` | no |
 | enable\_sealed\_secrets | Create sealed secrets controller | `bool` | `true` | no |
 | enable\_traefik | Enable traefik helm chart for VPC | `bool` | `false` | no |
+| initial\_node\_count | Number of nodes, when cluster starts | `number` | `1` | no |
 | location | Default GCP zone | `string` | `"europe-west3-c"` | no |
 | machine\_type | Default machine type to be used in GKE nodepool | `string` | `"n1-standard-1"` | no |
+| maintenance\_window\_time | Time when the maintenance window begins. | `string` | `"01:00"` | no |
 | max\_nodes | Maximum number of nodes deployed in initial node pool | `number` | `1` | no |
 | min\_nodes | Minimum number of nodes deployed in initial node pool | `number` | `1` | no |
 | namespace | Default namespace to be created after GKE start | `string` | `"production"` | no |
+| namespace\_labels | Default namespace labels | `map(string)` | `{}` | no |
 | network | Name of VPC network we are deploying to | `string` | `"default"` | no |
-| node\_pools | Definition of the node pools, by default uses only ackee\_pool | `map` | `{}` | no |
+| node\_pools | Definition of the node pools, by default uses only ackee\_pool | `map(any)` | `{}` | no |
 | private | Flag stating if nodes do not obtain public IP addresses - without turning on create\_nat\_gw parameter, private nodes are not able to reach internet | `bool` | `false` | no |
 | private\_master | Flag to put GKE master endpoint ONLY into private subnet. Setting to `false` will create both public and private endpoint. Setting to `true` is currently not supported by Ackee toolkit | `bool` | `false` | no |
 | private\_master\_subnet | Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask | `string` | `"172.16.0.0/28"` | no |

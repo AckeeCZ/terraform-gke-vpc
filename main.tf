@@ -82,7 +82,7 @@ resource "google_container_node_pool" "ackee_pool" {
     min_node_count = lookup(each.value, "min_nodes", var.min_nodes)
   }
 
-  dynamic upgrade_settings {
+  dynamic "upgrade_settings" {
     # a black magic to create block only if upgrade_settings contains any value
     for_each = var.upgrade_settings == null ? [] : [1]
     content {
@@ -118,4 +118,6 @@ resource "kubernetes_namespace" "main" {
   metadata {
     name = var.namespace
   }
+
+  labels = var.namespace_labels
 }
