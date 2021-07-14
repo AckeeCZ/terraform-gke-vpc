@@ -27,6 +27,12 @@ variable "namespace" {
   type        = string
 }
 
+variable "namespace_labels" {
+  description = "Default namespace labels"
+  default     = {}
+  type        = map(string)
+}
+
 variable "machine_type" {
   description = "Default machine type to be used in GKE nodepool"
   default     = "n1-standard-1"
@@ -164,7 +170,7 @@ variable "dns_nodelocal_cache" {
 }
 
 variable "node_pools" {
-  type        = map
+  type        = map(any)
   description = "Definition of the node pools, by default uses only ackee_pool"
   default     = {}
 }
