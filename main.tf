@@ -116,8 +116,7 @@ resource "google_container_node_pool" "ackee_pool" {
 
 resource "kubernetes_namespace" "main" {
   metadata {
-    name = var.namespace
+    name   = var.namespace
+    labels = var.namespace_labels
   }
-
-  labels = var.namespace_labels
 }
