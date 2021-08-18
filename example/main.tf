@@ -1,29 +1,4 @@
-provider "template" {
-  version = "~> 2.2.0"
-}
-
-provider "tls" {
-  version = "~> 3.1.0"
-}
-
-provider "random" {
-  version = "~> 3.1.0"
-}
-
-provider "vault" {
-  version = "~> 2.20.0"
-}
-
-provider "google" {
-  version = "~> 3.75.0"
-}
-
-provider "google-beta" {
-  version = "~> 3.69.0"
-}
-
 provider "kubernetes" {
-  version                = "~> 2.2.0"
   host                   = module.gke.endpoint
   token                  = module.gke.access_token
   cluster_ca_certificate = module.gke.cluster_ca_certificate
@@ -49,8 +24,6 @@ resource "kubernetes_pod" "nginx" {
 }
 
 data "google_client_config" "default" {}
-
-
 
 module "gke" {
   source            = "../"

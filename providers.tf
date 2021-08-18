@@ -1,12 +1,3 @@
-provider "random" {
-}
-
-provider "vault" {
-}
-
-provider "google" {
-}
-
 provider "kubernetes" {
   host  = "https://${google_container_cluster.primary.endpoint}"
   token = data.google_client_config.default.access_token
