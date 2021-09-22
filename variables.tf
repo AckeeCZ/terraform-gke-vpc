@@ -186,3 +186,9 @@ variable "initial_node_count" {
   description = "Number of nodes, when cluster starts"
   default     = 1
 }
+
+variable "min_master_version" {
+  type        = string
+  description = "The minimum version of the master"
+  default     = null
+}

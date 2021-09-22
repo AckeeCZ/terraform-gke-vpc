@@ -81,64 +81,84 @@ the environment.
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.13 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| google | n/a |
-| google-beta | n/a |
-| helm | n/a |
-| kubernetes | n/a |
-| vault | n/a |
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | n/a |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
+| <a name="provider_vault"></a> [vault](#provider\_vault) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [google-beta_google_container_cluster.primary](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_container_cluster) | resource |
+| [google_compute_firewall.sealed_secrets_allow](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_container_node_pool.ackee_pool](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool) | resource |
+| [helm_release.sealed_secrets](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.traefik](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubernetes_namespace.main](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
+| [vault_generic_secret.default](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/generic_secret) | resource |
+| [google_client_config.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_config) | data source |
+| [google_compute_network.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_network) | data source |
+| [google_container_cluster.primary](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/container_cluster) | data source |
+| [google_container_engine_versions.current](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/container_engine_versions) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| auto\_repair | Allow auto repair of node pool | `bool` | `true` | no |
-| auto\_upgrade | Allow auto upgrade of node pool | `bool` | `false` | no |
-| cluster\_ipv4\_cidr\_block | Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
-| cluster\_name | Name of GKE cluster, if not used, var.project is used instead | `string` | `""` | no |
-| disk\_size\_gb | Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB. | `number` | `100` | no |
-| dns\_nodelocal\_cache | Enable NodeLocal DNS Cache. This is disruptive operation. All cluster nodes are recreated. | `bool` | `false` | no |
-| enable\_sealed\_secrets | Create sealed secrets controller | `bool` | `true` | no |
-| enable\_traefik | Enable traefik helm chart for VPC | `bool` | `false` | no |
-| initial\_node\_count | Number of nodes, when cluster starts | `number` | `1` | no |
-| location | Default GCP zone | `string` | `"europe-west3-c"` | no |
-| machine\_type | Default machine type to be used in GKE nodepool | `string` | `"n1-standard-1"` | no |
-| maintenance\_window\_time | Time when the maintenance window begins. | `string` | `"01:00"` | no |
-| max\_nodes | Maximum number of nodes deployed in initial node pool | `number` | `1` | no |
-| min\_nodes | Minimum number of nodes deployed in initial node pool | `number` | `1` | no |
-| namespace | Default namespace to be created after GKE start | `string` | `"production"` | no |
-| namespace\_labels | Default namespace labels | `map(string)` | `{}` | no |
-| network | Name of VPC network we are deploying to | `string` | `"default"` | no |
-| node\_pools | Definition of the node pools, by default uses only ackee\_pool | `map(any)` | `{}` | no |
-| private | Flag stating if nodes do not obtain public IP addresses - without turning on create\_nat\_gw parameter, private nodes are not able to reach internet | `bool` | `false` | no |
-| private\_master | Flag to put GKE master endpoint ONLY into private subnet. Setting to `false` will create both public and private endpoint. Setting to `true` is currently not supported by Ackee toolkit | `bool` | `false` | no |
-| private\_master\_subnet | Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask | `string` | `"172.16.0.0/28"` | no |
-| project | GCP project name | `string` | n/a | yes |
-| region | GCP region | `string` | `"europe-west3"` | no |
-| sealed\_secrets\_version | Version of sealed secret helm chart | `string` | `"v1.13.2"` | no |
-| services\_ipv4\_cidr\_block | Optional IP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
-| traefik\_custom\_values | Traefik Helm chart custom values list | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | <pre>[<br>  {<br>    "name": "ssl.enabled",<br>    "value": "true"<br>  },<br>  {<br>    "name": "rbac.enabled",<br>    "value": "true"<br>  }<br>]</pre> | no |
-| traefik\_version | Version number of helm chart | `string` | `"1.7.2"` | no |
-| upgrade\_settings | Upgrade settings for node pool of GKE | `any` | `null` | no |
-| vault\_secret\_path | Path to secret in local vault, used mainly to save gke credentials | `string` | n/a | yes |
-| vertical\_pod\_autoscaling | Enable Vertical Pod Autoscaling | `bool` | `false` | no |
+| <a name="input_auto_repair"></a> [auto\_repair](#input\_auto\_repair) | Allow auto repair of node pool | `bool` | `true` | no |
+| <a name="input_auto_upgrade"></a> [auto\_upgrade](#input\_auto\_upgrade) | Allow auto upgrade of node pool | `bool` | `false` | no |
+| <a name="input_cluster_ipv4_cidr_block"></a> [cluster\_ipv4\_cidr\_block](#input\_cluster\_ipv4\_cidr\_block) | Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of GKE cluster, if not used, var.project is used instead | `string` | `""` | no |
+| <a name="input_disk_size_gb"></a> [disk\_size\_gb](#input\_disk\_size\_gb) | Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB. | `number` | `100` | no |
+| <a name="input_dns_nodelocal_cache"></a> [dns\_nodelocal\_cache](#input\_dns\_nodelocal\_cache) | Enable NodeLocal DNS Cache. This is disruptive operation. All cluster nodes are recreated. | `bool` | `false` | no |
+| <a name="input_enable_sealed_secrets"></a> [enable\_sealed\_secrets](#input\_enable\_sealed\_secrets) | Create sealed secrets controller | `bool` | `true` | no |
+| <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Enable traefik helm chart for VPC | `bool` | `false` | no |
+| <a name="input_initial_node_count"></a> [initial\_node\_count](#input\_initial\_node\_count) | Number of nodes, when cluster starts | `number` | `1` | no |
+| <a name="input_location"></a> [location](#input\_location) | Default GCP zone | `string` | `"europe-west3-c"` | no |
+| <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | Default machine type to be used in GKE nodepool | `string` | `"n1-standard-1"` | no |
+| <a name="input_maintenance_window_time"></a> [maintenance\_window\_time](#input\_maintenance\_window\_time) | Time when the maintenance window begins. | `string` | `"01:00"` | no |
+| <a name="input_max_nodes"></a> [max\_nodes](#input\_max\_nodes) | Maximum number of nodes deployed in initial node pool | `number` | `1` | no |
+| <a name="input_min_master_version"></a> [min\_master\_version](#input\_min\_master\_version) | The minimum version of the master | `string` | `null` | no |
+| <a name="input_min_nodes"></a> [min\_nodes](#input\_min\_nodes) | Minimum number of nodes deployed in initial node pool | `number` | `1` | no |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | Default namespace to be created after GKE start | `string` | `"production"` | no |
+| <a name="input_namespace_labels"></a> [namespace\_labels](#input\_namespace\_labels) | Default namespace labels | `map(string)` | `{}` | no |
+| <a name="input_network"></a> [network](#input\_network) | Name of VPC network we are deploying to | `string` | `"default"` | no |
+| <a name="input_node_pools"></a> [node\_pools](#input\_node\_pools) | Definition of the node pools, by default uses only ackee\_pool | `map(any)` | `{}` | no |
+| <a name="input_private"></a> [private](#input\_private) | Flag stating if nodes do not obtain public IP addresses - without turning on create\_nat\_gw parameter, private nodes are not able to reach internet | `bool` | `false` | no |
+| <a name="input_private_master"></a> [private\_master](#input\_private\_master) | Flag to put GKE master endpoint ONLY into private subnet. Setting to `false` will create both public and private endpoint. Setting to `true` is currently not supported by Ackee toolkit | `bool` | `false` | no |
+| <a name="input_private_master_subnet"></a> [private\_master\_subnet](#input\_private\_master\_subnet) | Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask | `string` | `"172.16.0.0/28"` | no |
+| <a name="input_project"></a> [project](#input\_project) | GCP project name | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | GCP region | `string` | `"europe-west3"` | no |
+| <a name="input_sealed_secrets_version"></a> [sealed\_secrets\_version](#input\_sealed\_secrets\_version) | Version of sealed secret helm chart | `string` | `"v1.13.2"` | no |
+| <a name="input_services_ipv4_cidr_block"></a> [services\_ipv4\_cidr\_block](#input\_services\_ipv4\_cidr\_block) | Optional IP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
+| <a name="input_traefik_custom_values"></a> [traefik\_custom\_values](#input\_traefik\_custom\_values) | Traefik Helm chart custom values list | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | <pre>[<br>  {<br>    "name": "ssl.enabled",<br>    "value": "true"<br>  },<br>  {<br>    "name": "rbac.enabled",<br>    "value": "true"<br>  }<br>]</pre> | no |
+| <a name="input_traefik_version"></a> [traefik\_version](#input\_traefik\_version) | Version number of helm chart | `string` | `"1.7.2"` | no |
+| <a name="input_upgrade_settings"></a> [upgrade\_settings](#input\_upgrade\_settings) | Upgrade settings for node pool of GKE | `any` | `null` | no |
+| <a name="input_vault_secret_path"></a> [vault\_secret\_path](#input\_vault\_secret\_path) | Path to secret in local vault, used mainly to save gke credentials | `string` | n/a | yes |
+| <a name="input_vertical_pod_autoscaling"></a> [vertical\_pod\_autoscaling](#input\_vertical\_pod\_autoscaling) | Enable Vertical Pod Autoscaling | `bool` | `false` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| access\_token | Client access token used kubeconfig |
-| client\_certificate | Client certificate used kubeconfig |
-| client\_key | Client key used kubeconfig |
-| cluster\_ca\_certificate | Client ca used kubeconfig |
-| cluster\_ipv4\_cidr | The IP address range of the Kubernetes pods in this cluster in CIDR notation |
-| endpoint | Cluster control plane endpoint |
-| instance\_group\_urls | List of instance group URLs which have been assigned to the cluster |
-| node\_pools | List of node pools associated with this cluster |
-
+| <a name="output_access_token"></a> [access\_token](#output\_access\_token) | Client access token used kubeconfig |
+| <a name="output_client_certificate"></a> [client\_certificate](#output\_client\_certificate) | Client certificate used kubeconfig |
+| <a name="output_client_key"></a> [client\_key](#output\_client\_key) | Client key used kubeconfig |
+| <a name="output_cluster_ca_certificate"></a> [cluster\_ca\_certificate](#output\_cluster\_ca\_certificate) | Client ca used kubeconfig |
+| <a name="output_cluster_ipv4_cidr"></a> [cluster\_ipv4\_cidr](#output\_cluster\_ipv4\_cidr) | The IP address range of the Kubernetes pods in this cluster in CIDR notation |
+| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | Cluster control plane endpoint |
+| <a name="output_instance_group_urls"></a> [instance\_group\_urls](#output\_instance\_group\_urls) | List of instance group URLs which have been assigned to the cluster |
+| <a name="output_node_pools"></a> [node\_pools](#output\_node\_pools) | List of node pools associated with this cluster |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
