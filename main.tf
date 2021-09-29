@@ -122,3 +122,19 @@ resource "kubernetes_namespace" "main" {
     labels = var.namespace_labels
   }
 }
+
+# https://istio.io/latest/docs/setup/platform-setup/gke/
+resource "google_compute_firewall" "istio_pilot_webhook_allow" {
+  name    = "istio-allow-pilot-webhook-${local.cluster_name}"
+  network = var.network
+  project = var.project
+
+  allow {
+    protocol = "tcp"
+    ports    = ["15017", "9443"]
+  }
+  source_ranges = [var.private_master_subnet]
+
+  target_tags = ["k8s"]
+  count       = var.istio && var.private ? 1 : 0
+}
