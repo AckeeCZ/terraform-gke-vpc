@@ -12,9 +12,10 @@ resource "google_container_cluster" "primary" {
   project            = var.project
   min_master_version = var.min_master_version == null ? data.google_container_engine_versions.current.latest_master_version : var.min_master_version
 
-  remove_default_node_pool = true
-  initial_node_count       = var.initial_node_count
-  enable_shielded_nodes    = true
+  remove_default_node_pool    = true
+  initial_node_count          = var.initial_node_count
+  enable_shielded_nodes       = true
+  enable_intranode_visibility = true
 
   master_auth {
     client_certificate_config {
