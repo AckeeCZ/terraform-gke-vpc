@@ -192,3 +192,9 @@ variable "min_master_version" {
   description = "The minimum version of the master"
   default     = null
 }
+
+variable "istio" {
+  type        = bool
+  description = "Setup infra for Istio (no installation)"
+  default     = false
+}
