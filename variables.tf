@@ -224,3 +224,9 @@ variable "oauth_scopes" {
   description = "Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes, if `workload_identity_config` is set, only `https://www.googleapis.com/auth/cloud-platform` is enabled."
   type        = list(string)
 }
+
+variable "istio" {
+  type        = bool
+  description = "Setup infra for Istio (no installation)"
+  default     = false
+}
