@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v9.8.0] - 2021-09-30
+### Added
+- Workload identity support
+
 ## [v9.7.0] - 2021-09-22
 ### Added
 - Add `min_master_version` as fixed parameter due to possible issues with compatibility of other components (Argo, Istio, ...)

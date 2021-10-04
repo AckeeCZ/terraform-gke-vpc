@@ -53,6 +53,13 @@ resource "google_container_cluster" "primary" {
   vertical_pod_autoscaling {
     enabled = var.vertical_pod_autoscaling
   }
+
+  dynamic "workload_identity_config" {
+    for_each = var.workload_identity_config ? [1] : []
+    content {
+      identity_namespace = "${var.project}.svc.id.goog"
+    }
+  }
   addons_config {
     dns_cache_config {
       enabled = var.dns_nodelocal_cache
@@ -99,7 +106,8 @@ resource "google_container_node_pool" "ackee_pool" {
       "https://www.googleapis.com/auth/servicecontrol",
       "https://www.googleapis.com/auth/service.management.readonly",
       "https://www.googleapis.com/auth/trace.append",
-      "https://www.googleapis.com/auth/compute.readonly"
+      "https://www.googleapis.com/auth/compute.readonly",
+      "https://www.googleapis.com/auth/cloud-platform",
     ]
 
     metadata = {
