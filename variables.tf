@@ -218,3 +218,15 @@ variable "istio" {
   description = "Setup infra for Istio (no installation)"
   default     = false
 }
+
+variable "enable_cert_manager" {
+  type        = bool
+  description = "Enable cert-manager helm chart"
+  default     = false
+}
+
+variable "cert_manager_version" {
+  description = "Version number of helm chart"
+  default     = "v1.5.4"
+  type        = string
+}
