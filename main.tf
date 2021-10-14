@@ -108,7 +108,7 @@ resource "google_container_node_pool" "ackee_pool" {
       disable-legacy-endpoints = "1"
     }
 
-    tags = ["k8s"]
+    tags = ["k8s", local.cluster_name]
 
     preemptible  = false
     machine_type = lookup(each.value, "machine_type", var.machine_type)
@@ -135,6 +135,6 @@ resource "google_compute_firewall" "istio_pilot_webhook_allow" {
   }
   source_ranges = [var.private_master_subnet]
 
-  target_tags = ["k8s"]
+  target_tags = ["k8s", local.cluster_name]
   count       = var.istio && var.private ? 1 : 0
 }
