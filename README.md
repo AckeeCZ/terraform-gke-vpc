@@ -136,6 +136,7 @@ No modules.
 | <a name="input_namespace_labels"></a> [namespace\_labels](#input\_namespace\_labels) | Default namespace labels | `map(string)` | `{}` | no |
 | <a name="input_network"></a> [network](#input\_network) | Name of VPC network we are deploying to | `string` | `"default"` | no |
 | <a name="input_node_pools"></a> [node\_pools](#input\_node\_pools) | Definition of the node pools, by default uses only ackee\_pool | `map(any)` | `{}` | no |
+| <a name="input_oauth_scopes"></a> [oauth\_scopes](#input\_oauth\_scopes) | Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes | `list(string)` | <pre>[<br>  "https://www.googleapis.com/auth/devstorage.read_only",<br>  "https://www.googleapis.com/auth/logging.write",<br>  "https://www.googleapis.com/auth/monitoring",<br>  "https://www.googleapis.com/auth/servicecontrol",<br>  "https://www.googleapis.com/auth/service.management.readonly",<br>  "https://www.googleapis.com/auth/trace.append",<br>  "https://www.googleapis.com/auth/compute.readonly",<br>  "https://www.googleapis.com/auth/cloud-platform"<br>]</pre> | no |
 | <a name="input_private"></a> [private](#input\_private) | Flag stating if nodes do not obtain public IP addresses - without turning on create\_nat\_gw parameter, private nodes are not able to reach internet | `bool` | `false` | no |
 | <a name="input_private_master"></a> [private\_master](#input\_private\_master) | Flag to put GKE master endpoint ONLY into private subnet. Setting to `false` will create both public and private endpoint. Setting to `true` is currently not supported by Ackee toolkit | `bool` | `false` | no |
 | <a name="input_private_master_subnet"></a> [private\_master\_subnet](#input\_private\_master\_subnet) | Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask | `string` | `"172.16.0.0/28"` | no |
@@ -148,6 +149,7 @@ No modules.
 | <a name="input_upgrade_settings"></a> [upgrade\_settings](#input\_upgrade\_settings) | Upgrade settings for node pool of GKE | `any` | `null` | no |
 | <a name="input_vault_secret_path"></a> [vault\_secret\_path](#input\_vault\_secret\_path) | Path to secret in local vault, used mainly to save gke credentials | `string` | n/a | yes |
 | <a name="input_vertical_pod_autoscaling"></a> [vertical\_pod\_autoscaling](#input\_vertical\_pod\_autoscaling) | Enable Vertical Pod Autoscaling | `bool` | `false` | no |
+| <a name="input_workload_identity_config"></a> [workload\_identity\_config](#input\_workload\_identity\_config) | Enable workload identities | `bool` | `false` | no |
 
 ## Outputs
 

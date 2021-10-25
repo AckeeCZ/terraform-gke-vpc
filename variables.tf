@@ -198,3 +198,18 @@ variable "workload_identity_config" {
   description = "Enable workload identities"
   default     = false
 }
+
+variable "oauth_scopes" {
+  default = [
+    "https://www.googleapis.com/auth/devstorage.read_only",
+    "https://www.googleapis.com/auth/logging.write",
+    "https://www.googleapis.com/auth/monitoring",
+    "https://www.googleapis.com/auth/servicecontrol",
+    "https://www.googleapis.com/auth/service.management.readonly",
+    "https://www.googleapis.com/auth/trace.append",
+    "https://www.googleapis.com/auth/compute.readonly",
+    "https://www.googleapis.com/auth/cloud-platform",
+  ]
+  description = "Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes"
+  type        = list(string)
+}
