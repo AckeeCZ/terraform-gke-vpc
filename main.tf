@@ -99,7 +99,9 @@ resource "google_container_node_pool" "ackee_pool" {
   }
 
   node_config {
-    oauth_scopes = lookup(each.value, "oauth_scopes", var.oauth_scopes)
+    oauth_scopes = var.workload_identity_config ? [
+      "https://www.googleapis.com/auth/cloud-platform",
+    ] : lookup(each.value, "oauth_scopes", var.oauth_scopes)
 
     metadata = {
       disable-legacy-endpoints = "1"

@@ -208,8 +208,7 @@ variable "oauth_scopes" {
     "https://www.googleapis.com/auth/service.management.readonly",
     "https://www.googleapis.com/auth/trace.append",
     "https://www.googleapis.com/auth/compute.readonly",
-    "https://www.googleapis.com/auth/cloud-platform",
   ]
-  description = "Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes"
+  description = "Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes, if `workload_identity_config` is set, only `https://www.googleapis.com/auth/cloud-platform` is enabled."
   type        = list(string)
 }

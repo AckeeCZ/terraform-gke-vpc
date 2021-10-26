@@ -34,7 +34,7 @@ module "gke" {
   private                  = false
   min_nodes                = 1
   max_nodes                = 2
-  workload_identity_config = false
+  workload_identity_config = true
   node_pools = {
     highcpu : {
       machine_type = "n1-highcpu-2"
