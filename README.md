@@ -161,6 +161,5 @@ No modules.
 | <a name="output_cluster_ca_certificate"></a> [cluster\_ca\_certificate](#output\_cluster\_ca\_certificate) | Client ca used kubeconfig |
 | <a name="output_cluster_ipv4_cidr"></a> [cluster\_ipv4\_cidr](#output\_cluster\_ipv4\_cidr) | The IP address range of the Kubernetes pods in this cluster in CIDR notation |
 | <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | Cluster control plane endpoint |
-| <a name="output_instance_group_urls"></a> [instance\_group\_urls](#output\_instance\_group\_urls) | List of instance group URLs which have been assigned to the cluster |
 | <a name="output_node_pools"></a> [node\_pools](#output\_node\_pools) | List of node pools associated with this cluster |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

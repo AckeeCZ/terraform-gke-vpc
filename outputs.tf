@@ -28,11 +28,6 @@ output "access_token" {
   value       = data.google_client_config.default.access_token
 }
 
-output "instance_group_urls" {
-  description = "List of instance group URLs which have been assigned to the cluster"
-  value       = google_container_cluster.primary.instance_group_urls
-}
-
 output "cluster_ipv4_cidr" {
   description = "The IP address range of the Kubernetes pods in this cluster in CIDR notation"
   value       = google_container_cluster.primary.cluster_ipv4_cidr
