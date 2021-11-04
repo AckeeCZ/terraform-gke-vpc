@@ -16,10 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - `instance_group_urls` output - dropped from upstream
 
-## [v10.1.0] - 2021-11-04
-### Removed
-- `instance_group_urls` output
-
 ## [v10.0.0] - 2021-10-25
 ### Changed
 - `oauth_scopes` for the node pool to variable
