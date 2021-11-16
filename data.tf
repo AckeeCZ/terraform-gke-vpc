@@ -16,3 +16,6 @@ data "google_container_cluster" "primary" {
   location = var.location
   project  = var.project
 }
+
+data "google_project" "project" {
+}
