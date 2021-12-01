@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v11.0.0] - 2021-11-16
+### Changed
+- `workload_identity_config.identity_namespace` changed to `workload_identity_config.workload_pool` - upstream change
+- Structure of example upgraded for Terraform 0.13+
+- Utilize NAT module and create private cluster in example
+### Removed
+- `instance_group_urls` output - dropped from upstream
+
 ## [v10.0.0] - 2021-10-25
 ### Changed
 - `oauth_scopes` for the node pool to variable
