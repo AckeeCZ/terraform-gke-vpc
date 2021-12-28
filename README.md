@@ -133,6 +133,7 @@ No modules.
 | <a name="input_max_nodes"></a> [max\_nodes](#input\_max\_nodes) | Maximum number of nodes deployed in initial node pool | `number` | `1` | no |
 | <a name="input_min_master_version"></a> [min\_master\_version](#input\_min\_master\_version) | The minimum version of the master | `string` | `null` | no |
 | <a name="input_min_nodes"></a> [min\_nodes](#input\_min\_nodes) | Minimum number of nodes deployed in initial node pool | `number` | `1` | no |
+| <a name="input_monitoring_config_enable_components"></a> [monitoring\_config\_enable\_components](#input\_monitoring\_config\_enable\_components) | The GKE components exposing logs. SYSTEM\_COMPONENTS and in beta provider, both SYSTEM\_COMPONENTS and WORKLOADS are supported. | `list(string)` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Default namespace to be created after GKE start | `string` | `"production"` | no |
 | <a name="input_namespace_labels"></a> [namespace\_labels](#input\_namespace\_labels) | Default namespace labels | `map(string)` | `{}` | no |
 | <a name="input_network"></a> [network](#input\_network) | Name of VPC network we are deploying to | `string` | `"default"` | no |
@@ -148,6 +149,7 @@ No modules.
 | <a name="input_traefik_custom_values"></a> [traefik\_custom\_values](#input\_traefik\_custom\_values) | Traefik Helm chart custom values list | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | <pre>[<br>  {<br>    "name": "ssl.enabled",<br>    "value": "true"<br>  },<br>  {<br>    "name": "rbac.enabled",<br>    "value": "true"<br>  }<br>]</pre> | no |
 | <a name="input_traefik_version"></a> [traefik\_version](#input\_traefik\_version) | Version number of helm chart | `string` | `"1.7.2"` | no |
 | <a name="input_upgrade_settings"></a> [upgrade\_settings](#input\_upgrade\_settings) | Upgrade settings for node pool of GKE | `any` | `null` | no |
+| <a name="input_use_workload_suggested_oauth_scopes"></a> [use\_workload\_suggested\_oauth\_scopes](#input\_use\_workload\_suggested\_oauth\_scopes) | In case you follow suggested practise, do not set to false and set scopes directly to workloads. This option is here for migration purpose. | `bool` | `true` | no |
 | <a name="input_vault_secret_path"></a> [vault\_secret\_path](#input\_vault\_secret\_path) | Path to secret in local vault, used mainly to save gke credentials | `string` | n/a | yes |
 | <a name="input_vertical_pod_autoscaling"></a> [vertical\_pod\_autoscaling](#input\_vertical\_pod\_autoscaling) | Enable Vertical Pod Autoscaling | `bool` | `false` | no |
 | <a name="input_workload_identity_config"></a> [workload\_identity\_config](#input\_workload\_identity\_config) | Enable workload identities | `bool` | `false` | no |

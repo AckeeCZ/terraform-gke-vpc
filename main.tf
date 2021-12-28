@@ -60,6 +60,14 @@ resource "google_container_cluster" "primary" {
       workload_pool = "${data.google_project.project.project_id}.svc.id.goog"
     }
   }
+
+  dynamic "monitoring_config" {
+    for_each = var.monitoring_config_enable_components == null ? [] : [1]
+    content {
+      enable_components = var.monitoring_config_enable_components
+    }
+  }
+
   addons_config {
     dns_cache_config {
       enabled = var.dns_nodelocal_cache
@@ -99,7 +107,7 @@ resource "google_container_node_pool" "ackee_pool" {
   }
 
   node_config {
-    oauth_scopes = var.workload_identity_config ? [
+    oauth_scopes = var.workload_identity_config && var.use_workload_suggested_oauth_scopes ? [
       "https://www.googleapis.com/auth/cloud-platform",
     ] : lookup(each.value, "oauth_scopes", var.oauth_scopes)
 

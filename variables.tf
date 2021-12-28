@@ -199,6 +199,18 @@ variable "workload_identity_config" {
   default     = false
 }
 
+variable "use_workload_suggested_oauth_scopes" {
+  type        = bool
+  description = "In case you follow suggested practise, do not set to false and set scopes directly to workloads. This option is here for migration purpose."
+  default     = true
+}
+
+variable "monitoring_config_enable_components" {
+  type        = list(string)
+  description = "The GKE components exposing logs. SYSTEM_COMPONENTS and in beta provider, both SYSTEM_COMPONENTS and WORKLOADS are supported."
+  default     = null
+}
+
 variable "oauth_scopes" {
   default = [
     "https://www.googleapis.com/auth/devstorage.read_only",
