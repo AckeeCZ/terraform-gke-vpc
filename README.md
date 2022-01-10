@@ -123,7 +123,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_auto_repair"></a> [auto\_repair](#input\_auto\_repair) | Allow auto repair of node pool | `bool` | `true` | no |
 | <a name="input_auto_upgrade"></a> [auto\_upgrade](#input\_auto\_upgrade) | Allow auto upgrade of node pool | `bool` | `false` | no |
-| <a name="input_cert_manager_version"></a> [cert\_manager\_version](#input\_cert\_manager\_version) | Version number of helm chart | `string` | `"v1.5.4"` | no |
+| <a name="input_cert_manager_version"></a> [cert\_manager\_version](#input\_cert\_manager\_version) | Version number of helm chart | `string` | `"v1.6.1"` | no |
 | <a name="input_ci_sa_email"></a> [ci\_sa\_email](#input\_ci\_sa\_email) | Email of Service Account used for CI deploys | `string` | `"gitlab@infrastruktura-1307.iam.gserviceaccount.com"` | no |
 | <a name="input_cluster_ipv4_cidr_block"></a> [cluster\_ipv4\_cidr\_block](#input\_cluster\_ipv4\_cidr\_block) | Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of GKE cluster, if not used, var.project is used instead | `string` | `""` | no |

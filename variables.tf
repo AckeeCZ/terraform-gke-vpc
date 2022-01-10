@@ -239,7 +239,7 @@ variable "enable_cert_manager" {
 
 variable "cert_manager_version" {
   description = "Version number of helm chart"
-  default     = "v1.5.4"
+  default     = "v1.6.1"
   type        = string
 }
 
