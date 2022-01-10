@@ -226,19 +226,25 @@ variable "oauth_scopes" {
 }
 
 variable "istio" {
-  type        = bool
   description = "Setup infra for Istio (no installation)"
   default     = false
+  type        = bool
 }
 
 variable "enable_cert_manager" {
-  type        = bool
   description = "Enable cert-manager helm chart"
   default     = false
+  type        = bool
 }
 
 variable "cert_manager_version" {
   description = "Version number of helm chart"
   default     = "v1.5.4"
   type        = string
+}
+
+variable "ci_sa_email" {
+  type        = string
+  description = "Email of Service Account used for CI deploys"
+  default     = "gitlab@infrastruktura-1307.iam.gserviceaccount.com"
 }
