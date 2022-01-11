@@ -242,3 +242,15 @@ variable "ci_sa_email" {
   description = "Email of Service Account used for CI deploys"
   default     = "gitlab@infrastruktura-1307.iam.gserviceaccount.com"
 }
+
+variable "enable_cert_manager" {
+  description = "Enable cert-manager helm chart"
+  default     = false
+  type        = bool
+}
+
+variable "cert_manager_version" {
+  description = "Version number of helm chart"
+  default     = "v1.6.1"
+  type        = string
+}

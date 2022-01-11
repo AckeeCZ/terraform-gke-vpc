@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - firewall rules for Istio pilot webhooks if `private` and `istio` vars are true
 - grant CI service account admin role in k8s cluster
+- support for cert-manager
 
 ## [v11.4.0] - 2022-04-20
 ### Changed
