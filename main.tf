@@ -115,6 +115,13 @@ resource "google_container_node_pool" "ackee_pool" {
       disable-legacy-endpoints = "1"
     }
 
+    dynamic "workload_metadata_config" {
+      for_each = var.workload_identity_config ? [1] : []
+      content {
+        mode = "GKE_METADATA"
+      }
+    }
+
     tags = ["k8s"]
 
     preemptible  = false
