@@ -1,6 +1,6 @@
 locals {
   node_pools = merge({
-    ackee-pool : {}
+    "${var.ackee_pool_name}" : {}
   }, var.node_pools)
   cluster_name = var.cluster_name == "" ? var.project : var.cluster_name
 }

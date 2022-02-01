@@ -21,6 +21,12 @@ variable "cluster_name" {
   type        = string
 }
 
+variable "ackee_pool_name" {
+  description = "Main pool name"
+  default     = "ackee-pool"
+  type        = string
+}
+
 variable "namespace" {
   description = "Default namespace to be created after GKE start"
   default     = "production"
