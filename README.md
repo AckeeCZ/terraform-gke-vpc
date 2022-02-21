@@ -118,6 +118,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_ackee_pool_name"></a> [ackee\_pool\_name](#input\_ackee\_pool\_name) | Main pool name | `string` | `"ackee-pool"` | no |
 | <a name="input_auto_repair"></a> [auto\_repair](#input\_auto\_repair) | Allow auto repair of node pool | `bool` | `true` | no |
 | <a name="input_auto_upgrade"></a> [auto\_upgrade](#input\_auto\_upgrade) | Allow auto upgrade of node pool | `bool` | `false` | no |
 | <a name="input_cluster_ipv4_cidr_block"></a> [cluster\_ipv4\_cidr\_block](#input\_cluster\_ipv4\_cidr\_block) | Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size. | `string` | `""` | no |

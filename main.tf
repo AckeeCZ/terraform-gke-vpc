@@ -124,7 +124,7 @@ resource "google_container_node_pool" "ackee_pool" {
 
     tags = ["k8s"]
 
-    preemptible  = false
+    preemptible  = lookup(each.value, "preemptible", false)
     machine_type = lookup(each.value, "machine_type", var.machine_type)
     disk_size_gb = lookup(each.value, "disk_size_gb", var.disk_size_gb)
   }
