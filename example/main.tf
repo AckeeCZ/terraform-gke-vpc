@@ -67,8 +67,8 @@ variable "namespace" {
 variable "project" {
 }
 
-variable "vault_secret_path" {
-}
+# variable "vault_secret_path" {
+# }
 
 variable "region" {
   default = "europe-west3"

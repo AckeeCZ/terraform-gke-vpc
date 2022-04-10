@@ -2,7 +2,7 @@
 
 export VAULT_ADDR=http://localhost:8200
 export VAULT_TOKEN=myroot
-export TF_VAR_vault_secret_path=secret/devops/internal/test-cluster
+# export TF_VAR_vault_secret_path=secret/devops/internal/test-cluster
 
 docker run -d --cap-add=IPC_LOCK -e 'VAULT_DEV_ROOT_TOKEN_ID=myroot' --name testing-vault -p 8200:8200 vault
 

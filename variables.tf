@@ -69,10 +69,10 @@ variable "max_nodes" {
   type        = number
 }
 
-variable "vault_secret_path" {
-  description = "Path to secret in local vault, used mainly to save gke credentials"
-  type        = string
-}
+# variable "vault_secret_path" {
+#   description = "Path to secret in local vault, used mainly to save gke credentials"
+#   type        = string
+# }
 
 variable "enable_traefik" {
   description = "Enable traefik helm chart for VPC"
