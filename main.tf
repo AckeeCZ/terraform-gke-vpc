@@ -136,3 +136,35 @@ resource "kubernetes_namespace" "main" {
     labels = var.namespace_labels
   }
 }
+
+# https://istio.io/latest/docs/setup/platform-setup/gke/
+resource "google_compute_firewall" "istio_pilot_webhook_allow" {
+  name    = "istio-allow-pilot-webhook-${local.cluster_name}"
+  network = var.network
+  project = var.project
+
+  allow {
+    protocol = "tcp"
+    ports    = ["15017", "9443"]
+  }
+  source_ranges = [var.private_master_subnet]
+
+  target_tags = ["k8s", local.cluster_name]
+  count       = var.istio && var.private ? 1 : 0
+}
+
+resource "kubernetes_cluster_role_binding" "cluster_admin_ci_sa" {
+  metadata {
+    name = "cluster-admin-gitlab-ci"
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"
+  }
+  subject {
+    kind      = "User"
+    name      = var.ci_sa_email
+    api_group = "rbac.authorization.k8s.io"
+  }
+}

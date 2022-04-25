@@ -230,3 +230,27 @@ variable "oauth_scopes" {
   description = "Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes, if `workload_identity_config` is set, only `https://www.googleapis.com/auth/cloud-platform` is enabled."
   type        = list(string)
 }
+
+variable "istio" {
+  description = "Setup infra for Istio (no installation)"
+  default     = false
+  type        = bool
+}
+
+variable "ci_sa_email" {
+  type        = string
+  description = "Email of Service Account used for CI deploys"
+  default     = "gitlab@infrastruktura-1307.iam.gserviceaccount.com"
+}
+
+variable "enable_cert_manager" {
+  description = "Enable cert-manager helm chart"
+  default     = false
+  type        = bool
+}
+
+variable "cert_manager_version" {
+  description = "Version number of helm chart"
+  default     = "v1.6.1"
+  type        = string
+}
