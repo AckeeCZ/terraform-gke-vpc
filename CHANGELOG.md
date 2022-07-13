@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v11.6.0] - 2022-07-29
+### Added
+- `google_gke_hub_membership` resource for ASM clusters
+- `google_gke_hub_feature` resource for ASM clusters
+- Anthos-related API's enablement for ASM clusters
+- `cluster_labels` variable
+- `cluster_admins` variable
+- `network_policy` variable
+- `release_channel` variable
+- ports `15014` and `10250` to `istio_pilot_webhook_allow` google_compute_firewall resource
+### Changed
+- `istio` variable name to `anthos`
+- versions of example TF providers to latest versions
+- `auto_upgrade` and `auto_repair` variables handling - now both set to `true` if `release_channel` is set to `REGULAR`
+- `cluster_admin_ci_sa` kubernetes_cluster_role_binding to create bindings from both `ci_sa_email` and `cluster_admins` variables
+- default version of sealed_secrets Helm chart to `v2.3.0` - v1 is not working anymore
+### Removed
+- `logging_service = "logging.googleapis.com/kubernetes"` - this is default and explicit definition collides with
+`monitoring_config` setting
+- `monitoring_service = "monitoring.googleapis.com/kubernetes"` - this is default and explicit definition collides with
+`monitoring_config` setting
+
 ## [v11.5.0] - 2022-04-25
 ### Added
 - firewall rules for Istio pilot webhooks if `private` and `istio` vars are true

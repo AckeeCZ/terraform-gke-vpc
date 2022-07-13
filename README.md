@@ -102,9 +102,13 @@ No modules.
 | Name | Type |
 |------|------|
 | [google-beta_google_container_cluster.primary](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_container_cluster) | resource |
+| [google-beta_google_gke_hub_feature.anthos](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_gke_hub_feature) | resource |
+| [google-beta_google_gke_hub_membership.anthos](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_gke_hub_membership) | resource |
 | [google_compute_firewall.istio_pilot_webhook_allow](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.sealed_secrets_allow](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_container_node_pool.ackee_pool](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool) | resource |
+| [google_project_service.anthos_api](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
+| [google_project_service.mesh_apis](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
 | [helm_release.cert_manager](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.sealed_secrets](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.traefik](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
@@ -122,11 +126,14 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_ackee_pool_name"></a> [ackee\_pool\_name](#input\_ackee\_pool\_name) | Main pool name | `string` | `"ackee-pool"` | no |
+| <a name="input_anthos"></a> [anthos](#input\_anthos) | Setup infra for GKE Anthos clusters | `bool` | `false` | no |
 | <a name="input_auto_repair"></a> [auto\_repair](#input\_auto\_repair) | Allow auto repair of node pool | `bool` | `true` | no |
 | <a name="input_auto_upgrade"></a> [auto\_upgrade](#input\_auto\_upgrade) | Allow auto upgrade of node pool | `bool` | `false` | no |
 | <a name="input_cert_manager_version"></a> [cert\_manager\_version](#input\_cert\_manager\_version) | Version number of helm chart | `string` | `"v1.6.1"` | no |
 | <a name="input_ci_sa_email"></a> [ci\_sa\_email](#input\_ci\_sa\_email) | Email of Service Account used for CI deploys | `string` | `"gitlab@infrastruktura-1307.iam.gserviceaccount.com"` | no |
+| <a name="input_cluster_admins"></a> [cluster\_admins](#input\_cluster\_admins) | List of users granted admin roles inside cluster | `list(string)` | `[]` | no |
 | <a name="input_cluster_ipv4_cidr_block"></a> [cluster\_ipv4\_cidr\_block](#input\_cluster\_ipv4\_cidr\_block) | Optional IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
+| <a name="input_cluster_labels"></a> [cluster\_labels](#input\_cluster\_labels) | Labels to the cluster | `map(string)` | `{}` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of GKE cluster, if not used, var.project is used instead | `string` | `""` | no |
 | <a name="input_disk_size_gb"></a> [disk\_size\_gb](#input\_disk\_size\_gb) | Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB. | `number` | `100` | no |
 | <a name="input_dns_nodelocal_cache"></a> [dns\_nodelocal\_cache](#input\_dns\_nodelocal\_cache) | Enable NodeLocal DNS Cache. This is disruptive operation. All cluster nodes are recreated. | `bool` | `false` | no |
@@ -134,7 +141,6 @@ No modules.
 | <a name="input_enable_sealed_secrets"></a> [enable\_sealed\_secrets](#input\_enable\_sealed\_secrets) | Create sealed secrets controller | `bool` | `true` | no |
 | <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Enable traefik helm chart for VPC | `bool` | `false` | no |
 | <a name="input_initial_node_count"></a> [initial\_node\_count](#input\_initial\_node\_count) | Number of nodes, when cluster starts | `number` | `1` | no |
-| <a name="input_istio"></a> [istio](#input\_istio) | Setup infra for Istio (no installation) | `bool` | `false` | no |
 | <a name="input_location"></a> [location](#input\_location) | Default GCP zone | `string` | `"europe-west3-c"` | no |
 | <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | Default machine type to be used in GKE nodepool | `string` | `"n1-standard-1"` | no |
 | <a name="input_maintenance_window_time"></a> [maintenance\_window\_time](#input\_maintenance\_window\_time) | Time when the maintenance window begins. | `string` | `"01:00"` | no |
@@ -145,14 +151,16 @@ No modules.
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Default namespace to be created after GKE start | `string` | `"production"` | no |
 | <a name="input_namespace_labels"></a> [namespace\_labels](#input\_namespace\_labels) | Default namespace labels | `map(string)` | `{}` | no |
 | <a name="input_network"></a> [network](#input\_network) | Name of VPC network we are deploying to | `string` | `"default"` | no |
+| <a name="input_network_policy"></a> [network\_policy](#input\_network\_policy) | Name of network policy enabled on cluster | `string` | `null` | no |
 | <a name="input_node_pools"></a> [node\_pools](#input\_node\_pools) | Definition of the node pools, by default uses only ackee\_pool | `map(any)` | `{}` | no |
 | <a name="input_oauth_scopes"></a> [oauth\_scopes](#input\_oauth\_scopes) | Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes, if `workload_identity_config` is set, only `https://www.googleapis.com/auth/cloud-platform` is enabled. | `list(string)` | <pre>[<br>  "https://www.googleapis.com/auth/devstorage.read_only",<br>  "https://www.googleapis.com/auth/logging.write",<br>  "https://www.googleapis.com/auth/monitoring",<br>  "https://www.googleapis.com/auth/servicecontrol",<br>  "https://www.googleapis.com/auth/service.management.readonly",<br>  "https://www.googleapis.com/auth/trace.append",<br>  "https://www.googleapis.com/auth/compute.readonly"<br>]</pre> | no |
 | <a name="input_private"></a> [private](#input\_private) | Flag stating if nodes do not obtain public IP addresses - without turning on create\_nat\_gw parameter, private nodes are not able to reach internet | `bool` | `false` | no |
 | <a name="input_private_master"></a> [private\_master](#input\_private\_master) | Flag to put GKE master endpoint ONLY into private subnet. Setting to `false` will create both public and private endpoint. Setting to `true` is currently not supported by Ackee toolkit | `bool` | `false` | no |
 | <a name="input_private_master_subnet"></a> [private\_master\_subnet](#input\_private\_master\_subnet) | Subnet for private GKE master. There will be peering routed to VPC created with this subnet. It must be unique within VPC network and must be /28 mask | `string` | `"172.16.0.0/28"` | no |
-| <a name="input_project"></a> [project](#input\_project) | GCP project name | `string` | n/a | yes |
+| <a name="input_project"></a> [project](#input\_project) | GCP project ID | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | GCP region | `string` | `"europe-west3"` | no |
-| <a name="input_sealed_secrets_version"></a> [sealed\_secrets\_version](#input\_sealed\_secrets\_version) | Version of sealed secret helm chart | `string` | `"v1.13.2"` | no |
+| <a name="input_release_channel"></a> [release\_channel](#input\_release\_channel) | Version number of helm chart | `string` | `null` | no |
+| <a name="input_sealed_secrets_version"></a> [sealed\_secrets\_version](#input\_sealed\_secrets\_version) | Version of sealed secret helm chart | `string` | `"v2.3.0"` | no |
 | <a name="input_services_ipv4_cidr_block"></a> [services\_ipv4\_cidr\_block](#input\_services\_ipv4\_cidr\_block) | Optional IP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
 | <a name="input_traefik_custom_values"></a> [traefik\_custom\_values](#input\_traefik\_custom\_values) | Traefik Helm chart custom values list | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | <pre>[<br>  {<br>    "name": "ssl.enabled",<br>    "value": "true"<br>  },<br>  {<br>    "name": "rbac.enabled",<br>    "value": "true"<br>  }<br>]</pre> | no |
 | <a name="input_traefik_version"></a> [traefik\_version](#input\_traefik\_version) | Version number of helm chart | `string` | `"1.7.2"` | no |
