@@ -3,6 +3,18 @@ locals {
     "${var.ackee_pool_name}" : {}
   }, var.node_pools)
   cluster_name = var.cluster_name == "" ? var.project : var.cluster_name
+  mesh_apis = var.anthos ? [
+    "mesh.googleapis.com",
+    "meshca.googleapis.com",
+    "meshtelemetry.googleapis.com",
+    "meshconfig.googleapis.com",
+    "gkeconnect.googleapis.com",
+    "gkehub.googleapis.com"
+  ] : []
+  cluster_admins     = concat(["${var.ci_sa_email}"], var.cluster_admins)
+  auto_upgrade       = (var.auto_upgrade == true || var.release_channel == "REGULAR") ? true : false
+  auto_repair        = (var.auto_repair == true || var.release_channel == "REGULAR") ? true : false
+  min_master_version = (var.min_master_version == null && var.release_channel == null) ? data.google_container_engine_versions.current.latest_master_version : (var.min_master_version == null ? data.google_container_engine_versions.current.release_channel_default_version[var.release_channel] : var.min_master_version)
 }
 
 resource "google_container_cluster" "primary" {
@@ -10,11 +22,27 @@ resource "google_container_cluster" "primary" {
   name               = local.cluster_name
   location           = var.location
   project            = var.project
-  min_master_version = var.min_master_version == null ? data.google_container_engine_versions.current.latest_master_version : var.min_master_version
+  min_master_version = local.min_master_version
+
+  dynamic "release_channel" {
+    for_each = var.release_channel == null ? [] : [1]
+    content {
+      channel = var.release_channel
+    }
+  }
+
+  dynamic "network_policy" {
+    for_each = var.network_policy == null ? [] : [1]
+    content {
+      enabled  = true
+      provider = var.network_policy
+    }
+  }
 
   remove_default_node_pool = true
   initial_node_count       = var.initial_node_count
   enable_shielded_nodes    = true
+  resource_labels          = var.cluster_labels
 
   master_auth {
     client_certificate_config {
@@ -24,8 +52,6 @@ resource "google_container_cluster" "primary" {
 
   network                 = data.google_compute_network.default.self_link
   enable_kubernetes_alpha = "false"
-  logging_service         = "logging.googleapis.com/kubernetes"
-  monitoring_service      = "monitoring.googleapis.com/kubernetes"
 
   private_cluster_config {
     enable_private_endpoint = var.private_master
@@ -73,6 +99,10 @@ resource "google_container_cluster" "primary" {
       enabled = var.dns_nodelocal_cache
     }
   }
+  depends_on = [
+    google_project_service.anthos_api,
+    google_project_service.mesh_apis
+  ]
 }
 
 resource "google_container_node_pool" "ackee_pool" {
@@ -88,8 +118,8 @@ resource "google_container_node_pool" "ackee_pool" {
   node_locations = lookup(each.value, "node_locations", null)
 
   management {
-    auto_repair  = var.auto_repair
-    auto_upgrade = var.auto_upgrade
+    auto_repair  = local.auto_repair
+    auto_upgrade = local.auto_upgrade
   }
 
   autoscaling {
@@ -137,7 +167,7 @@ resource "kubernetes_namespace" "main" {
   }
 }
 
-# https://istio.io/latest/docs/setup/platform-setup/gke/
+# https://cloud.google.com/service-mesh/docs/private-cluster-open-port
 resource "google_compute_firewall" "istio_pilot_webhook_allow" {
   name    = "istio-allow-pilot-webhook-${local.cluster_name}"
   network = var.network
@@ -145,17 +175,18 @@ resource "google_compute_firewall" "istio_pilot_webhook_allow" {
 
   allow {
     protocol = "tcp"
-    ports    = ["15017", "9443"]
+    ports    = ["15014", "15017", "9443", "10250"]
   }
   source_ranges = [var.private_master_subnet]
 
   target_tags = ["k8s", local.cluster_name]
-  count       = var.istio && var.private ? 1 : 0
+  count       = var.anthos && var.private ? 1 : 0
 }
 
 resource "kubernetes_cluster_role_binding" "cluster_admin_ci_sa" {
+  for_each = toset(local.cluster_admins)
   metadata {
-    name = "cluster-admin-gitlab-ci"
+    name = "cluster-admin-${each.key}"
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
@@ -164,7 +195,46 @@ resource "kubernetes_cluster_role_binding" "cluster_admin_ci_sa" {
   }
   subject {
     kind      = "User"
-    name      = var.ci_sa_email
+    name      = each.value
     api_group = "rbac.authorization.k8s.io"
   }
+}
+
+resource "google_project_service" "mesh_apis" {
+  for_each                   = toset(local.mesh_apis)
+  service                    = each.value
+  disable_dependent_services = false
+  disable_on_destroy         = false
+  project                    = var.project
+}
+
+resource "google_project_service" "anthos_api" {
+  service                    = "anthos.googleapis.com"
+  disable_dependent_services = false
+  disable_on_destroy         = true
+  project                    = var.project
+  count                      = var.anthos ? 1 : 0
+}
+
+resource "google_gke_hub_membership" "anthos" {
+  provider      = google-beta
+  project       = var.project
+  membership_id = local.cluster_name
+  endpoint {
+    gke_cluster {
+      resource_link = google_container_cluster.primary.id
+    }
+  }
+  authority {
+    issuer = "https://container.googleapis.com/v1/${google_container_cluster.primary.id}"
+  }
+  count = var.anthos ? 1 : 0
+}
+
+resource "google_gke_hub_feature" "anthos" {
+  provider = google-beta
+
+  name     = "servicemesh"
+  location = "global"
+  count    = var.anthos ? 1 : 0
 }
