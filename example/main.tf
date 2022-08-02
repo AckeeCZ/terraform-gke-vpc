@@ -16,7 +16,7 @@ module "cloud-nat" {
 }
 
 provider "kubernetes" {
-  host                   = module.gke.endpoint
+  host                   = "https://${module.gke.endpoint}"
   token                  = module.gke.access_token
   cluster_ca_certificate = module.gke.cluster_ca_certificate
 }
@@ -43,21 +43,31 @@ resource "kubernetes_pod" "nginx" {
 data "google_client_config" "default" {}
 
 module "gke" {
-  source                   = "../"
-  namespace                = var.namespace
-  project                  = var.project
-  location                 = var.zone
-  vault_secret_path        = var.vault_secret_path
-  private                  = true
-  min_nodes                = 1
-  max_nodes                = 2
-  workload_identity_config = true
+  source                              = "../"
+  namespace                           = var.namespace
+  project                             = var.project
+  location                            = var.zone
+  vault_secret_path                   = var.vault_secret_path
+  enable_sealed_secrets               = false
+  private                             = true
+  min_nodes                           = 1
+  max_nodes                           = 2
+  workload_identity_config            = true
+  use_workload_suggested_oauth_scopes = false
   node_pools = {
     highcpu : {
       machine_type = "n1-highcpu-2"
       max_nodes    = 1
     }
   }
+  cluster_admins = [
+    "martin.beranek@ackee.cz",
+    "ondrej.storc@ackee.cz",
+    "tomas.hejatko@ackee.cz",
+  ]
+  monitoring_config_enable_components = [
+    "SYSTEM_COMPONENTS"
+  ]
 }
 
 variable "namespace" {

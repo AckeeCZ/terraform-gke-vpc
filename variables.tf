@@ -11,7 +11,7 @@ variable "region" {
 }
 
 variable "project" {
-  description = "GCP project name"
+  description = "GCP project ID"
   type        = string
 }
 
@@ -48,7 +48,7 @@ variable "machine_type" {
 variable "sealed_secrets_version" {
   type        = string
   description = "Version of sealed secret helm chart"
-  default     = "v1.13.2"
+  default     = "v2.3.0"
 }
 
 variable "enable_sealed_secrets" {
@@ -218,6 +218,8 @@ variable "monitoring_config_enable_components" {
 }
 
 variable "oauth_scopes" {
+  description = "Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes, if `workload_identity_config` is set, only `https://www.googleapis.com/auth/cloud-platform` is enabled."
+  type        = list(string)
   default = [
     "https://www.googleapis.com/auth/devstorage.read_only",
     "https://www.googleapis.com/auth/logging.write",
@@ -227,14 +229,12 @@ variable "oauth_scopes" {
     "https://www.googleapis.com/auth/trace.append",
     "https://www.googleapis.com/auth/compute.readonly",
   ]
-  description = "Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes, if `workload_identity_config` is set, only `https://www.googleapis.com/auth/cloud-platform` is enabled."
-  type        = list(string)
 }
 
-variable "istio" {
-  description = "Setup infra for Istio (no installation)"
-  default     = false
+variable "anthos" {
+  description = "Setup infra for GKE Anthos clusters"
   type        = bool
+  default     = false
 }
 
 variable "ci_sa_email" {
@@ -245,12 +245,36 @@ variable "ci_sa_email" {
 
 variable "enable_cert_manager" {
   description = "Enable cert-manager helm chart"
-  default     = false
   type        = bool
+  default     = false
 }
 
 variable "cert_manager_version" {
   description = "Version number of helm chart"
-  default     = "v1.6.1"
   type        = string
+  default     = "v1.6.1"
+}
+
+variable "cluster_labels" {
+  description = "Labels to the cluster"
+  type        = map(string)
+  default     = {}
+}
+
+variable "cluster_admins" {
+  description = "List of users granted admin roles inside cluster"
+  type        = list(string)
+  default     = []
+}
+
+variable "network_policy" {
+  description = "Name of network policy enabled on cluster"
+  type        = string
+  default     = null
+}
+
+variable "release_channel" {
+  description = "Version number of helm chart"
+  type        = string
+  default     = null
 }
