@@ -278,3 +278,9 @@ variable "release_channel" {
   type        = string
   default     = null
 }
+
+variable "image_streaming" {
+  type        = bool
+  description = "Enable GKE image streaming feature."
+  default     = false
+}
