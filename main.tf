@@ -99,6 +99,7 @@ resource "google_container_cluster" "primary" {
       enabled = var.dns_nodelocal_cache
     }
   }
+
   depends_on = [
     google_project_service.anthos_api,
     google_project_service.mesh_apis
@@ -145,6 +146,13 @@ resource "google_container_node_pool" "ackee_pool" {
       disable-legacy-endpoints = "1"
     }
 
+    dynamic "gcfs_config" {
+      for_each = var.image_streaming ? [1] : []
+      content {
+        enabled = true
+      }
+    }
+
     dynamic "workload_metadata_config" {
       for_each = var.workload_identity_config ? [1] : []
       content {
@@ -165,6 +173,14 @@ resource "kubernetes_namespace" "main" {
     name   = var.namespace
     labels = var.namespace_labels
   }
+}
+
+resource "google_project_service" "containerfilesystem_api" {
+  service                    = "containerfilesystem.googleapis.com"
+  disable_dependent_services = false
+  disable_on_destroy         = true
+  project                    = var.project
+  count                      = var.image_streaming ? 1 : 0
 }
 
 # https://cloud.google.com/service-mesh/docs/private-cluster-open-port

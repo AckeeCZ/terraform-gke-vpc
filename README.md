@@ -81,7 +81,7 @@ the environment.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 
 ## Providers
 
@@ -108,6 +108,7 @@ No modules.
 | [google_compute_firewall.sealed_secrets_allow](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_container_node_pool.ackee_pool](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool) | resource |
 | [google_project_service.anthos_api](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
+| [google_project_service.containerfilesystem_api](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
 | [google_project_service.mesh_apis](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
 | [helm_release.cert_manager](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.sealed_secrets](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
@@ -140,6 +141,7 @@ No modules.
 | <a name="input_enable_cert_manager"></a> [enable\_cert\_manager](#input\_enable\_cert\_manager) | Enable cert-manager helm chart | `bool` | `false` | no |
 | <a name="input_enable_sealed_secrets"></a> [enable\_sealed\_secrets](#input\_enable\_sealed\_secrets) | Create sealed secrets controller | `bool` | `true` | no |
 | <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Enable traefik helm chart for VPC | `bool` | `false` | no |
+| <a name="input_image_streaming"></a> [image\_streaming](#input\_image\_streaming) | Enable GKE image streaming feature. | `bool` | `false` | no |
 | <a name="input_initial_node_count"></a> [initial\_node\_count](#input\_initial\_node\_count) | Number of nodes, when cluster starts | `number` | `1` | no |
 | <a name="input_location"></a> [location](#input\_location) | Default GCP zone | `string` | `"europe-west3-c"` | no |
 | <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | Default machine type to be used in GKE nodepool | `string` | `"n1-standard-1"` | no |
