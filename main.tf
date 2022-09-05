@@ -116,6 +116,12 @@ resource "google_container_node_pool" "ackee_pool" {
 
   initial_node_count = var.initial_node_count
 
+  lifecycle {
+    ignore_changes = [
+      initial_node_count
+    ]
+  }
+
   node_locations = lookup(each.value, "node_locations", null)
 
   management {
