@@ -146,6 +146,7 @@ No modules.
 | <a name="input_location"></a> [location](#input\_location) | Default GCP zone | `string` | `"europe-west3-c"` | no |
 | <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | Default machine type to be used in GKE nodepool | `string` | `"n1-standard-1"` | no |
 | <a name="input_maintenance_window_time"></a> [maintenance\_window\_time](#input\_maintenance\_window\_time) | Time when the maintenance window begins. | `string` | `"01:00"` | no |
+| <a name="input_managed_prometheus_enable"></a> [managed\_prometheus\_enable](#input\_managed\_prometheus\_enable) | Configuration for Managed Service for Prometheus. | `bool` | `false` | no |
 | <a name="input_max_nodes"></a> [max\_nodes](#input\_max\_nodes) | Maximum number of nodes deployed in initial node pool | `number` | `1` | no |
 | <a name="input_min_master_version"></a> [min\_master\_version](#input\_min\_master\_version) | The minimum version of the master | `string` | `null` | no |
 | <a name="input_min_nodes"></a> [min\_nodes](#input\_min\_nodes) | Minimum number of nodes deployed in initial node pool | `number` | `1` | no |
