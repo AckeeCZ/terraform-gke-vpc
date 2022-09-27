@@ -217,6 +217,12 @@ variable "monitoring_config_enable_components" {
   default     = null
 }
 
+variable "managed_prometheus_enable" {
+  type        = bool
+  description = "Configuration for Managed Service for Prometheus."
+  default     = false
+}
+
 variable "oauth_scopes" {
   description = "Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes, if `workload_identity_config` is set, only `https://www.googleapis.com/auth/cloud-platform` is enabled."
   type        = list(string)

@@ -94,6 +94,13 @@ resource "google_container_cluster" "primary" {
     }
   }
 
+  dynamic "managed_prometheus" {
+    for_each = var.managed_prometheus_enable == false ? [] : [1]
+    content {
+      enabled = var.managed_prometheus_enable
+    }
+  }
+
   addons_config {
     dns_cache_config {
       enabled = var.dns_nodelocal_cache
