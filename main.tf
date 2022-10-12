@@ -91,15 +91,16 @@ resource "google_container_cluster" "primary" {
     for_each = var.monitoring_config_enable_components == null ? [] : [1]
     content {
       enable_components = var.monitoring_config_enable_components
+      dynamic "managed_prometheus" {
+        for_each = var.managed_prometheus_enable == false ? [] : [1]
+        content {
+          enabled = var.managed_prometheus_enable
+        }
+      }
     }
   }
 
-  dynamic "managed_prometheus" {
-    for_each = var.managed_prometheus_enable == false ? [] : [1]
-    content {
-      enabled = var.managed_prometheus_enable
-    }
-  }
+
 
   addons_config {
     dns_cache_config {
