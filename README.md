@@ -118,7 +118,6 @@ No modules.
 | [vault_generic_secret.default](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/generic_secret) | resource |
 | [google_client_config.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_config) | data source |
 | [google_compute_network.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_network) | data source |
-| [google_container_cluster.primary](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/container_cluster) | data source |
 | [google_container_engine_versions.current](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/container_engine_versions) | data source |
 | [google_project.project](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/project) | data source |
 
@@ -155,6 +154,7 @@ No modules.
 | <a name="input_namespace_labels"></a> [namespace\_labels](#input\_namespace\_labels) | Default namespace labels | `map(string)` | `{}` | no |
 | <a name="input_network"></a> [network](#input\_network) | Name of VPC network we are deploying to | `string` | `"default"` | no |
 | <a name="input_network_policy"></a> [network\_policy](#input\_network\_policy) | Name of network policy enabled on cluster | `string` | `null` | no |
+| <a name="input_node_pool_location_policy"></a> [node\_pool\_location\_policy](#input\_node\_pool\_location\_policy) | Node pool load balancing location policy | `string` | `"BALANCED"` | no |
 | <a name="input_node_pools"></a> [node\_pools](#input\_node\_pools) | Definition of the node pools, by default uses only ackee\_pool | `map(any)` | `{}` | no |
 | <a name="input_oauth_scopes"></a> [oauth\_scopes](#input\_oauth\_scopes) | Oauth scopes given to the node pools, further info at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#oauth_scopes, if `workload_identity_config` is set, only `https://www.googleapis.com/auth/cloud-platform` is enabled. | `list(string)` | <pre>[<br>  "https://www.googleapis.com/auth/devstorage.read_only",<br>  "https://www.googleapis.com/auth/logging.write",<br>  "https://www.googleapis.com/auth/monitoring",<br>  "https://www.googleapis.com/auth/servicecontrol",<br>  "https://www.googleapis.com/auth/service.management.readonly",<br>  "https://www.googleapis.com/auth/trace.append",<br>  "https://www.googleapis.com/auth/compute.readonly"<br>]</pre> | no |
 | <a name="input_private"></a> [private](#input\_private) | Flag stating if nodes do not obtain public IP addresses - without turning on create\_nat\_gw parameter, private nodes are not able to reach internet | `bool` | `false` | no |

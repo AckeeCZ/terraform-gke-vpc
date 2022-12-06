@@ -144,8 +144,9 @@ resource "google_container_node_pool" "ackee_pool" {
   }
 
   autoscaling {
-    max_node_count = lookup(each.value, "max_nodes", var.max_nodes)
-    min_node_count = lookup(each.value, "min_nodes", var.min_nodes)
+    max_node_count  = lookup(each.value, "max_nodes", var.max_nodes)
+    min_node_count  = lookup(each.value, "min_nodes", var.min_nodes)
+    location_policy = lookup(each.value, "node_pool_location_policy", var.node_pool_location_policy)
   }
 
   dynamic "upgrade_settings" {
