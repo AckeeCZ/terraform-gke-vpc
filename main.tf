@@ -106,6 +106,12 @@ resource "google_container_cluster" "primary" {
     dns_cache_config {
       enabled = var.dns_nodelocal_cache
     }
+    dynamic "network_policy_config" {
+      for_each = var.network_policy == null ? [] : [1]
+      content {
+        disabled = false
+      }
+    }
   }
 
   depends_on = [
