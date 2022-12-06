@@ -11,11 +11,5 @@ data "google_compute_network" "default" {
   name    = var.network
 }
 
-data "google_container_cluster" "primary" {
-  name     = var.project
-  location = var.location
-  project  = var.project
-}
-
 data "google_project" "project" {
 }
