@@ -290,3 +290,9 @@ variable "image_streaming" {
   description = "Enable GKE image streaming feature."
   default     = false
 }
+
+variable "node_pool_location_policy" {
+  type        = string
+  description = "Node pool load balancing location policy"
+  default     = "BALANCED"
+}

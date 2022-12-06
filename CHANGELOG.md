@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v11.11.0] - 2022-12-06
+### Added
+- `node_pool_location_policy` variable
+
 ## [v11.10.0] - 2022-12-05
 ### Fixed
 - Missing GKE master part for network policy enablement
