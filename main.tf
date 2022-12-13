@@ -1,7 +1,5 @@
 locals {
-  node_pools = merge({
-    "${var.ackee_pool_name}" : {}
-  }, var.node_pools)
+  node_pools   = var.enable_autopilot ? {} : merge({ "${var.ackee_pool_name}" : {} }, var.node_pools)
   cluster_name = var.cluster_name == "" ? var.project : var.cluster_name
   mesh_apis = var.anthos ? [
     "mesh.googleapis.com",
@@ -15,6 +13,9 @@ locals {
   auto_upgrade       = (var.auto_upgrade == true || var.release_channel == "REGULAR") ? true : false
   auto_repair        = (var.auto_repair == true || var.release_channel == "REGULAR") ? true : false
   min_master_version = (var.min_master_version == null && var.release_channel == null) ? data.google_container_engine_versions.current.latest_master_version : (var.min_master_version == null ? data.google_container_engine_versions.current.release_channel_default_version[var.release_channel] : var.min_master_version)
+  workload_identity  = (var.workload_identity_config == true && var.enable_autopilot == false) ? true : false
+  dns_cache          = (var.dns_nodelocal_cache == true && var.enable_autopilot == false) ? true : false
+  addons_config      = ((var.dns_nodelocal_cache == true || var.network_policy != null) && var.enable_autopilot == false) ? true : false
 }
 
 resource "google_container_cluster" "primary" {
@@ -39,10 +40,10 @@ resource "google_container_cluster" "primary" {
     }
   }
 
-  remove_default_node_pool = true
-  initial_node_count       = var.initial_node_count
-  enable_shielded_nodes    = true
-  resource_labels          = var.cluster_labels
+  #remove_default_node_pool = false
+  initial_node_count = var.initial_node_count
+  resource_labels    = var.cluster_labels
+  enable_autopilot   = var.enable_autopilot
 
   master_auth {
     client_certificate_config {
@@ -81,7 +82,7 @@ resource "google_container_cluster" "primary" {
   }
 
   dynamic "workload_identity_config" {
-    for_each = var.workload_identity_config ? [1] : []
+    for_each = local.workload_identity ? [1] : []
     content {
       workload_pool = "${data.google_project.project.project_id}.svc.id.goog"
     }
@@ -100,16 +101,32 @@ resource "google_container_cluster" "primary" {
     }
   }
 
-
-
-  addons_config {
-    dns_cache_config {
-      enabled = var.dns_nodelocal_cache
+  dynamic "addons_config" {
+    for_each = local.addons_config ? [1] : []
+    content {
+      dynamic "dns_cache_config" {
+        for_each = local.dns_cache ? [1] : []
+        content {
+          enabled = true
+        }
+      }
+      dynamic "network_policy_config" {
+        for_each = var.network_policy == null ? [] : [1]
+        content {
+          disabled = false
+        }
+      }
     }
-    dynamic "network_policy_config" {
-      for_each = var.network_policy == null ? [] : [1]
-      content {
-        disabled = false
+  }
+
+  dynamic "node_pool_auto_config" {
+    for_each = var.enable_autopilot ? [1] : []
+    content {
+      dynamic "network_tags" {
+        for_each = var.enable_autopilot ? [1] : []
+        content {
+          tags = ["k8s"]
+        }
       }
     }
   }

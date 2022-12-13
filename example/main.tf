@@ -46,7 +46,7 @@ module "gke" {
   source                              = "../"
   namespace                           = var.namespace
   project                             = var.project
-  location                            = var.zone
+  location                            = var.region
   vault_secret_path                   = var.vault_secret_path
   enable_sealed_secrets               = false
   private                             = true
@@ -68,6 +68,8 @@ module "gke" {
   monitoring_config_enable_components = [
     "SYSTEM_COMPONENTS"
   ]
+  enable_autopilot         = true
+  vertical_pod_autoscaling = true
 }
 
 variable "namespace" {

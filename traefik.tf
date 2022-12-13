@@ -5,7 +5,8 @@ resource "helm_release" "traefik" {
   chart   = "traefik"
   version = var.traefik_version
 
-  namespace = "kube-system"
+  namespace        = var.traefik_namespace
+  create_namespace = true
 
   dynamic "set" {
     for_each = var.traefik_custom_values

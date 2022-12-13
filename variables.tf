@@ -86,6 +86,12 @@ variable "traefik_version" {
   type        = string
 }
 
+variable "traefik_namespace" {
+  description = "Traefik namespace"
+  default     = "kube-system"
+  type        = string
+}
+
 variable "auto_repair" {
   description = "Allow auto repair of node pool"
   default     = true
@@ -295,4 +301,10 @@ variable "node_pool_location_policy" {
   type        = string
   description = "Node pool load balancing location policy"
   default     = "BALANCED"
+}
+
+variable "enable_autopilot" {
+  type        = bool
+  description = "Enable autopilot feature"
+  default     = false
 }

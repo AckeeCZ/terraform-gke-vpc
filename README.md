@@ -43,6 +43,12 @@ This module deletes default GKE node pool and create new pool named `ackee-pool`
 
 Amount of nodes is defined by `min_nodes` and `max_nodes` parameters, which set up autoscaling on node pool. Default values are 1 for both vars, which is effectively not autoscaling, but fits our needs very well :)
 
+## GKE Autopilot
+
+Turning on Autopilot with variable `enable_autopilot`, makes these other options uneffective:
+
+* `workload_identity_config`
+
 ## Usage
 
 ```hcl
@@ -137,6 +143,7 @@ No modules.
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of GKE cluster, if not used, var.project is used instead | `string` | `""` | no |
 | <a name="input_disk_size_gb"></a> [disk\_size\_gb](#input\_disk\_size\_gb) | Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB. | `number` | `100` | no |
 | <a name="input_dns_nodelocal_cache"></a> [dns\_nodelocal\_cache](#input\_dns\_nodelocal\_cache) | Enable NodeLocal DNS Cache. This is disruptive operation. All cluster nodes are recreated. | `bool` | `false` | no |
+| <a name="input_enable_autopilot"></a> [enable\_autopilot](#input\_enable\_autopilot) | Enable autopilot feature | `bool` | `false` | no |
 | <a name="input_enable_cert_manager"></a> [enable\_cert\_manager](#input\_enable\_cert\_manager) | Enable cert-manager helm chart | `bool` | `false` | no |
 | <a name="input_enable_sealed_secrets"></a> [enable\_sealed\_secrets](#input\_enable\_sealed\_secrets) | Create sealed secrets controller | `bool` | `true` | no |
 | <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Enable traefik helm chart for VPC | `bool` | `false` | no |
@@ -166,6 +173,7 @@ No modules.
 | <a name="input_sealed_secrets_version"></a> [sealed\_secrets\_version](#input\_sealed\_secrets\_version) | Version of sealed secret helm chart | `string` | `"v2.3.0"` | no |
 | <a name="input_services_ipv4_cidr_block"></a> [services\_ipv4\_cidr\_block](#input\_services\_ipv4\_cidr\_block) | Optional IP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size. | `string` | `""` | no |
 | <a name="input_traefik_custom_values"></a> [traefik\_custom\_values](#input\_traefik\_custom\_values) | Traefik Helm chart custom values list | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | <pre>[<br>  {<br>    "name": "ssl.enabled",<br>    "value": "true"<br>  },<br>  {<br>    "name": "rbac.enabled",<br>    "value": "true"<br>  }<br>]</pre> | no |
+| <a name="input_traefik_namespace"></a> [traefik\_namespace](#input\_traefik\_namespace) | Traefik namespace | `string` | `"kube-system"` | no |
 | <a name="input_traefik_version"></a> [traefik\_version](#input\_traefik\_version) | Version number of helm chart | `string` | `"1.7.2"` | no |
 | <a name="input_upgrade_settings"></a> [upgrade\_settings](#input\_upgrade\_settings) | Upgrade settings for node pool of GKE | `any` | `null` | no |
 | <a name="input_use_workload_suggested_oauth_scopes"></a> [use\_workload\_suggested\_oauth\_scopes](#input\_use\_workload\_suggested\_oauth\_scopes) | In case you follow suggested practise, do not set to false and set scopes directly to workloads. This option is here for migration purpose. | `bool` | `true` | no |
